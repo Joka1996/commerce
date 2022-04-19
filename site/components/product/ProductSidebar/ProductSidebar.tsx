@@ -56,11 +56,11 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product,data, className }) =>
     <div className={className}>
       <ProductOptions
       //ändrat från options till min egna prop, från productOptions
-        options={data.data.content}
-        filter1Items={data.data.content.filter1Items}
-        filter1Text={data.data.content.filter1Text}
-        filter2Items={data.data.content.filter2Items}
-        filter2Text= {data.data.content.filter2Text}
+        options={data.content}
+        filter1Items={data.content.filter1Items}
+        filter1Text={data.content.filter1Text}
+        filter2Items={data.content.filter2Items}
+        filter2Text= {data.content.filter2Text}
         selectedOptions={selectedOptions}
         setSelectedOptions={setSelectedOptions}
       />

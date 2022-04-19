@@ -45,22 +45,22 @@ import type {
     const { pages } = await pagesPromise
     const { categories } = await siteInfoPromise
     //skicka url till fetch-funktionen
-    // let test = await productPromise;
+    //bytt ut product till data
     // console.log(test);
-    const { data: product  } = await productPromise;
+    const { data} = await productPromise;
     const { products: relatedProducts } = await allProductsPromise
-    // console.log('*************');
-  //  console.log(product);
+  //   console.log('*************');
+  //  console.log(data.content.productItem);
 
 
-    // if (!product) {
-    //   throw new Error(`Product with slug '${params!.slug}' not found`)
-    // }
+    if (!data) {
+      throw new Error(`Product with slug '${params!.slug}' not found`)
+    }
 
     return {
       props: {
         pages,
-        product,
+        data,
         relatedProducts,
         categories,
       },
@@ -85,7 +85,7 @@ import type {
     }
   }
   export default function Woman({
-    product,
+    data,
     relatedProducts,
   }: InferGetStaticPropsType<typeof getStaticProps>) {
     const router = useRouter()
@@ -102,7 +102,7 @@ import type {
       <h1>Loading...</h1>
     ) : (
  //ändrat product till den befintliga och lagt till data
-       <ProductView product={product.content.productItem} relatedProducts={relatedProducts} data={product} />
+       <ProductView product={data.content.productItem} relatedProducts={relatedProducts} data={data} />
     )
   }
 //  const Woman = async () => {
