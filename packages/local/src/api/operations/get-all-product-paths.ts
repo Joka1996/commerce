@@ -1,13 +1,19 @@
 import data from '../../data.json'
+import GetWoman from '../endpoints/fetchWoman'
+
+
 
 export type GetAllProductPathsResult = {
-  products: Array<{ path: string }>
+  products: Array<{ url: string }>
 }
 
 export default function getAllProductPathsOperation() {
-  function getAllProductPaths(): Promise<GetAllProductPathsResult> {
+  async function getAllProductPaths(): Promise<GetAllProductPathsResult> {
+    let womanProducts = await GetWoman();
     return Promise.resolve({
-      products: data.products.map(({ path }) => ({ path })),
+
+      products: womanProducts.map(({ url }) => ({ url })),
+      // products: data.products.map(({ path }) => ({ path })),
     })
   }
 

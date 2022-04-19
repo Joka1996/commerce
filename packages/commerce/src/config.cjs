@@ -16,7 +16,7 @@ function withCommerceConfig(nextConfig = {}) {
     )
   }
 
-  const commerceNextConfig = importCwd(path.join(provider, 'next.config'))
+  const commerceNextConfig = importCwd(path.join(provider, '/dist/next.config.cjs'))
   const config = merge(nextConfig, commerceNextConfig)
   const features = merge(
     config.commerce.features,

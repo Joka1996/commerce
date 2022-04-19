@@ -2,8 +2,11 @@ import type { GetStaticPropsContext } from 'next'
 import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
 import { Text } from '@components/ui'
+import GetSingleProduct from '@framework/api/endpoints/fetchSingleProduct'
+import { useRouter } from 'next/router'
 
 export async function getStaticProps({
+  
   preview,
   locale,
   locales,
@@ -22,6 +25,10 @@ export async function getStaticProps({
 }
 
 export default function NotFound() {
+  // const router = useRouter()
+  // GetSingleProduct(router.asPath)
+  // console.log(GetSingleProduct(router.asPath));  
+
   return (
     <div className="max-w-2xl mx-8 sm:mx-auto py-20 flex flex-col items-center justify-center fit">
       <Text variant="heading">Not Found</Text>

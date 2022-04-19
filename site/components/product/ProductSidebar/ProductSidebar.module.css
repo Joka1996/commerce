@@ -42,6 +42,7 @@
 
 .imageContainer {
   @apply text-center;
+
 }
 
 .imageContainer > div,

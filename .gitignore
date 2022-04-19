@@ -38,3 +38,7 @@ yarn-error.log*
 
 # Turborepo
 .turbo
+
+#bilder och elasticsearch
+media/
+volumes/

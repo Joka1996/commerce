@@ -8,9 +8,11 @@ interface SwatchProps {
   active?: boolean
   children?: any
   className?: string
-  variant?: 'size' | 'color' | string
+  variant?: 'size' | 'color' | string 
   color?: string
   label?: string | null
+  //lagt till url för
+  url?:string
 }
 
 const Swatch: React.FC<Omit<ButtonProps, 'variant'> & SwatchProps> = ({

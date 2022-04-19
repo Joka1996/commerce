@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
 import { ProductView } from '@components/product'
+import GetSingleProduct from '@framework/api/endpoints/fetchSingleProduct'
 
 export async function getStaticProps({
   params,
@@ -32,10 +33,10 @@ export async function getStaticProps({
   const { categories } = await siteInfoPromise
   const { product } = await productPromise
   const { products: relatedProducts } = await allProductsPromise
-
+  
   if (!product) {
     throw new Error(`Product with slug '${params!.slug}' not found`)
-  }
+  } 
 
   return {
     props: {
@@ -47,7 +48,7 @@ export async function getStaticProps({
     revalidate: 200,
   }
 }
-
+////
 export async function getStaticPaths({ locales }: GetStaticPathsContext) {
   const { products } = await commerce.getAllProductPaths()
 
@@ -70,11 +71,12 @@ export default function Slug({
   relatedProducts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter()
-
+  
   return router.isFallback ? (
     <h1>Loading...</h1>
   ) : (
-    <ProductView product={product} relatedProducts={relatedProducts} />
+    //ändrat product till den befintliga och lagt till data
+     <ProductView product={product.data.content.productItem} relatedProducts={relatedProducts} data={product} />
   )
 }
 

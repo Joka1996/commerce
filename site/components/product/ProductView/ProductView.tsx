@@ -11,17 +11,24 @@ import { SEO } from '@components/common'
 import ProductSidebar from '../ProductSidebar'
 import ProductTag from '../ProductTag'
 interface ProductViewProps {
+  //har lagt till data:any för att kunna ta emot all data som kommer från fetchanropet.
+  data: any
   product: Product
   relatedProducts: Product[]
 }
 
-const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
+const ProductView: FC<ProductViewProps> = ({data, product, relatedProducts }) => {
+  // console.log(data);
   const { price } = usePrice({
     amount: product.price.value,
     baseAmount: product.price.retailPrice,
     currencyCode: product.price.currencyCode!,
   })
 
+    //imageloader för bilder 
+    const externaImageLoader = ({ src }: { src: string }) =>
+  `https://localtest.me:5001${src}`;
+    // console.log(URL+product.images[0].url);
   return (
     <>
       <Container className="max-w-none w-full" clean>
@@ -29,21 +36,27 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
           <div className={cn(s.main, 'fit')}>
             <ProductTag
               name={product.name}
-              price={`${price} ${product.price?.currencyCode}`}
+              //ändrat till formattedprice
+              price={`${price} ${product.price?.formattedPrice}`}
               fontSize={32}
             />
-            <div className={s.sliderContainer}>
+            <div className={s.sliderContainer}> 
               <ProductSlider key={product.id}>
                 {product.images.map((image, i) => (
                   <div key={image.url} className={s.imageContainer}>
                     <Image
                       className={s.img}
+                      //lagt till loader, inte ändrat src då den mappas här och heter samma
+                      loader={externaImageLoader}
                       src={image.url!}
                       alt={image.alt || 'Product Image'}
                       width={600}
                       height={600}
                       priority={i === 0}
                       quality="85"
+                      
+                      //lagt till
+                      objectFit='contain'
                     />
                   </div>
                 ))}
@@ -61,6 +74,8 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
           <ProductSidebar
             key={product.id}
             product={product}
+            //skicka med data till productsidebar
+            data={data}
             className={s.sidebar}
           />
         </div>

@@ -9,6 +9,7 @@ import getCustomerWishlist from './operations/get-customer-wishlist'
 import getAllProductPaths from './operations/get-all-product-paths'
 import getAllProducts from './operations/get-all-products'
 import getProduct from './operations/get-product'
+import React from 'react';
 
 export interface LocalConfig extends CommerceAPIConfig {}
 const config: LocalConfig = {
@@ -40,3 +41,4 @@ export function getCommerceApi<P extends Provider>(
 ): LocalAPI<P> {
   return commerceApi(customProvider as any)
 }
+

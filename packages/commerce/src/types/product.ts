@@ -1,3 +1,5 @@
+import exp from "constants"
+
 export type ProductImage = {
   url: string
   alt?: string
@@ -11,6 +13,9 @@ export type ProductPrice = {
   listPrice?: number
   extendedSalePrice?: number
   extendedListPrice?: number
+  //lagt till->
+  formattedPrice : string
+  currency: string
 }
 
 export type ProductOption = {
@@ -31,6 +36,48 @@ export type ProductVariant = {
   availableForSale?: boolean
 }
 
+//egen
+export type LitiumOptionValues= {
+  value: string
+  __typename:string
+}
+
+export type LitiumOption = {
+  filter1Text: string
+  filter2Text : string
+  isActive: boolean,
+  enabled: boolean,
+  name: string,
+  url: string
+  value: LitiumOptionValues[]
+}
+
+export type filter1Items = {
+  filter1Text: string
+  isActive: boolean,
+  value: string,
+  enabled: boolean,
+  name: string,
+  url: string
+}
+//egen
+export type filter2Items = {
+  filter2Text : string
+  isActive: boolean,
+  value: string,
+  enabled: boolean,
+  name: string,
+  url: string
+}
+
+
+export type filter1Text = {
+  filter1Text: string
+}
+export type filter2Text = {
+  filter2Text: string
+}
+//byggt på
 export type Product = {
   id: string
   name: string
@@ -44,6 +91,18 @@ export type Product = {
   price: ProductPrice
   options: ProductOption[]
   vendor?: string
+  //lagt till ->
+  url? : string
+  filter1Items: LitiumOption[]
+  filter1Text: LitiumOption[]
+  filter2Items: LitiumOption[]
+  filter2Text: LitiumOption[]
+  brand?: string
+  color?: string
+  isInStock?: boolean
+  stockStatusDescription?: string
+  showBuyButton? : boolean
+  showQuantityField?: boolean
 }
 
 export type SearchProductsBody = {

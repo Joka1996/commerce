@@ -4,6 +4,7 @@ import { ProductCard } from '@components/product'
 import { Grid, Marquee, Hero } from '@components/ui'
 // import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import GetSingleProduct from '@framework/api/endpoints/fetchSingleProduct'
 
 export async function getStaticProps({
   preview,
@@ -35,12 +36,19 @@ export async function getStaticProps({
   }
 }
 
+// console.log(GetSingleProduct());
+
 export default function Home({
   products,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+
+  //Test för att se vad products innehåller
+  // console.log(products);
+  
   return (
     <>
       <Grid variant="filled">
+        {/* De stora bildena på övre halvan, innan rullista */}
         {products.slice(0, 3).map((product: any, i: number) => (
           <ProductCard
             key={product.id}
@@ -53,6 +61,7 @@ export default function Home({
           />
         ))}
       </Grid>
+      {/* Övre rullista */}
       <Marquee variant="secondary">
         {products.slice(0, 3).map((product: any, i: number) => (
           <ProductCard key={product.id} product={product} variant="slim" />
@@ -63,6 +72,7 @@ export default function Home({
         description="Cupcake ipsum dolor sit amet lemon drops pastry cotton candy. Sweet carrot cake macaroon bonbon croissant fruitcake jujubes macaroon oat cake. Soufflé bonbon caramels jelly beans. Tiramisu sweet roll cheesecake pie carrot cake. "
       />
       <Grid layout="B" variant="filled">
+        {/* stora bilder på nedre halvan */}
         {products.slice(0, 3).map((product: any, i: number) => (
           <ProductCard
             key={product.id}
@@ -74,6 +84,7 @@ export default function Home({
           />
         ))}
       </Grid>
+      {/* sista rullistan */}
       <Marquee>
         {products.slice(3).map((product: any, i: number) => (
           <ProductCard key={product.id} product={product} variant="slim" />

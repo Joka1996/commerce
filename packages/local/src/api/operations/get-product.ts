@@ -3,6 +3,8 @@ import { Product } from '@vercel/commerce/types/product'
 import { GetProductOperation } from '@vercel/commerce/types/product'
 import data from '../../data.json'
 import type { OperationContext } from '@vercel/commerce/api/operations'
+import GetSingleProduct from '../endpoints/fetchSingleProduct'
+
 
 export default function getProductOperation({
   commerce,
@@ -16,11 +18,15 @@ export default function getProductOperation({
     variables?: T['variables']
     config?: Partial<LocalConfig>
     preview?: boolean
-  } = {}): Promise<Product | {} | any> {
+  } = {}): Promise<Product | {} | any > {
+    //Hämta all data från enkel produkt
+    let singleProduct = await GetSingleProduct();
     return {
-      product: data.products.find(({ slug }) => slug === variables!.slug),
+      product: singleProduct,
     }
   }
 
   return getProduct
 }
+//og
+//data.products.find(({ slug }) => slug === variables!.slug)

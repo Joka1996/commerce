@@ -7,6 +7,8 @@ import Image, { ImageProps } from 'next/image'
 import WishlistButton from '@components/wishlist/WishlistButton'
 import usePrice from '@framework/product/use-price'
 import ProductTag from '../ProductTag'
+import GetSingleProduct from '@framework/api/endpoints/fetchSingleProduct'
+import React, { useState, useEffect,ChangeEvent} from "react";
 
 interface Props {
   className?: string
@@ -37,22 +39,45 @@ const ProductCard: FC<Props> = ({
     className
   )
 
+    //i denna fil har jag anpassat bilder, samt bytt till formattedPrice
+    const [param, setParam] = useState("");
+
+    //loader 
+    const externaImageLoader = ({ src }: { src: string }) =>
+  `https://localtest.me:5001${src}`;
+  
+  
+
+    //hämta value från elementet
+    // const handleClick = (e: ChangeEvent<HTMLImageElement>) => {
+    //   e.preventDefault();
+    //   setParam(e.target.alt);
+    //     console.log(param);
+    //     GetSingleProduct(param);
+    // }
+
   return (
-    <Link href={`/product/${product.slug}`}>
+    //ändrat till url från slug
+    <Link  href={`${product.url}`}>
       <a className={rootClassName} aria-label={product.name}>
         {variant === 'slim' && (
           <>
+          { /* Detta är rullistan på framsidan */}
             <div className={s.header}>
-              <span>{product.name}</span>
+              <span>{product.name} </span>
             </div>
             {product?.images && (
               <div>
                 <Image
+                  // onClick={handleClick}
                   quality="85"
-                  src={product.images[0]?.url || placeholderImg}
+                  //lagt till egen loader
+                  loader={externaImageLoader}
+                  src={product.images[0].url ||placeholderImg}
                   alt={product.name || 'Product Image'}
-                  height={320}
-                  width={320}
+                  // anpassat bild-storlekar
+                  height={300}
+                  width={240}
                   layout="fixed"
                   {...imgProps}
                 />
@@ -60,7 +85,7 @@ const ProductCard: FC<Props> = ({
             )}
           </>
         )}
-
+    {/**Slut rullista */}
         {variant === 'simple' && (
           <>
             {process.env.COMMERCE_WISHLIST_ENABLED && (
@@ -80,17 +105,23 @@ const ProductCard: FC<Props> = ({
                 </div>
               </div>
             )}
+            {/* Detta är "Liknand produkter" som visas på produk-sidan */}
             <div className={s.imageContainer}>
               {product?.images && (
                 <div>
                   <Image
+                    // onClick={handleClick}
+                  //lagt till egen loader
+                    loader={externaImageLoader}
                     alt={product.name || 'Product Image'}
                     className={s.productImage}
                     src={product.images[0]?.url || placeholderImg}
-                    height={540}
-                    width={540}
+                    height={200}
+                    width={140}
                     quality="85"
                     layout="responsive"
+                    //lagt till objectfit
+                    objectFit='contain'
                     {...imgProps}
                   />
                 </div>
@@ -98,7 +129,7 @@ const ProductCard: FC<Props> = ({
             </div>
           </>
         )}
-
+        {/**Detta är de stora produkt-divarna på hem */}
         {variant === 'default' && (
           <>
             {process.env.COMMERCE_WISHLIST_ENABLED && (
@@ -110,19 +141,26 @@ const ProductCard: FC<Props> = ({
             )}
             <ProductTag
               name={product.name}
-              price={`${price} ${product.price?.currencyCode}`}
+              price={`${price} ${product.price?.formattedPrice}`}
             />
             <div className={s.imageContainer}>
               {product?.images && (
                 <div>
+                  {/* dessa är de stora bilderna */}
                   <Image
+                    // onClick={handleClick}
+                    loader={externaImageLoader}
                     alt={product.name || 'Product Image'}
                     className={s.productImage}
-                    src={product.images[0]?.url || placeholderImg}
-                    height={540}
-                    width={540}
+                    src={product.images[3]?.url || placeholderImg}
+                    //hjälper ej att ändra dessa
+                    height={1590}
+                    width={1113}
                     quality="85"
                     layout="responsive"
+                     //lagt till contain så att bilden krymper något
+                    objectFit='contain'
+                    sizes="50vw"
                     {...imgProps}
                   />
                 </div>
