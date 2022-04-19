@@ -30,17 +30,6 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
   options,
   setSelectedOptions,
 }) => {
-
-  //skapa en tom array som ska ha allt innehåll?
-  // const test= [];
-  // let colorText = filter1Text;
-  // let sizeText =  filter2Text
-  // //loopa igenom och push till den nya.
-  // for(let color of  filter1Items){
-  //   for(let size of filter2Items ){
-  //     test.push(color, size,);
-  //   }
-  // }
   
   //Gör om till text
   let sizeText = filter2Text.toString();
