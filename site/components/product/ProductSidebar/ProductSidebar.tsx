@@ -65,7 +65,8 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product,data, className }) =>
         setSelectedOptions={setSelectedOptions}
       />
        {/* testning av filterItems */}
-      {/* {console.log(data.data.content)} */}
+       {/* {console.log('*************')}
+      {console.log(data.data.content)} */}
 
       <h2><b>{product.name}</b></h2>
       <Text

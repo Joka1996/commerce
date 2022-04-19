@@ -77,7 +77,7 @@ export type filter1Text = {
 export type filter2Text = {
   filter2Text: string
 }
-//byggt på
+//byggt på denna
 export type Product = {
   id: string
   name: string

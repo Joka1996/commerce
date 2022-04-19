@@ -17,35 +17,46 @@ import type {
     locales,
     preview,
   }: GetStaticPropsContext<{ slug: string }>) {
-    // const router = useRouter()
-    console.log('*************');
-    console.log(params);
-    //  const urlPath = router.asPath;
-    //  GetSingleProduct(urlPath);
+
+    //få ut url ur params
+    let url = Object.values(params);
+    let saveURL ="";
+    // console.log('****');
+    url.forEach(element=> {
+      saveURL = element.join("/");
+    })
+    // console.log(saveURL);
     const config = { locale, locales }
     const pagesPromise = commerce.getAllPages({ config, preview })
     const siteInfoPromise = commerce.getSiteInfo({ config, preview })
-     const productPromise =  
-    commerce.getProduct({
-      variables: { slug: params!.slug },
-      config,
-      preview,
-    })
-  
+    const productPromise = GetSingleProduct(saveURL);
+    // commerce.getProduct({
+    //   variables: { slug: params!.slug },
+    //   config,
+    //   preview,
+    // })
+
     const allProductsPromise = commerce.getAllProducts({
       variables: { first: 4 },
       config,
       preview,
     })
+ 
     const { pages } = await pagesPromise
     const { categories } = await siteInfoPromise
-    const { product } = await productPromise
+    //skicka url till fetch-funktionen
+    // let test = await productPromise;
+    // console.log(test);
+    const { data: product  } = await productPromise;
     const { products: relatedProducts } = await allProductsPromise
-    
-    if (!product) {
-      throw new Error(`Product with slug '${params!.slug}' not found`)
-    } 
-  
+    // console.log('*************');
+  //  console.log(product);
+
+
+    // if (!product) {
+    //   throw new Error(`Product with slug '${params!.slug}' not found`)
+    // }
+
     return {
       props: {
         pages,
@@ -59,7 +70,7 @@ import type {
   ////
   export async function getStaticPaths({ locales }: GetStaticPathsContext) {
     const { products } = await commerce.getAllProductPaths()
-  
+
     return {
       paths: locales
         ? locales.reduce<string[]>((arr, locale) => {
@@ -78,12 +89,12 @@ import type {
     relatedProducts,
   }: InferGetStaticPropsType<typeof getStaticProps>) {
     const router = useRouter()
-
-    const urlPath = router.asPath;
-    console.log('*****');
-    console.log(urlPath);
+    // console.log(data);
+    // const urlPath = router.asPath;
+    // console.log('*****');
+    // console.log(urlPath);
 //    product = await GetSingleProduct(urlPath);
-    
+
     // console.log('*************');
     // console.log(product.data.content.productItem);
 
@@ -91,7 +102,7 @@ import type {
       <h1>Loading...</h1>
     ) : (
  //ändrat product till den befintliga och lagt till data
-       <ProductView product={product.data.content.productItem} relatedProducts={relatedProducts} data={product} />
+       <ProductView product={product.content.productItem} relatedProducts={relatedProducts} data={product} />
     )
   }
 //  const Woman = async () => {
