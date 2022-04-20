@@ -30,6 +30,7 @@ import type {
     const pagesPromise = commerce.getAllPages({ config, preview })
     const siteInfoPromise = commerce.getSiteInfo({ config, preview })
     const productPromise = GetSingleProduct(saveURL);
+    //the old
     // commerce.getProduct({
     //   variables: { slug: params!.slug },
     //   config,
@@ -89,14 +90,6 @@ import type {
     relatedProducts,
   }: InferGetStaticPropsType<typeof getStaticProps>) {
     const router = useRouter()
-    // console.log(data);
-    // const urlPath = router.asPath;
-    // console.log('*****');
-    // console.log(urlPath);
-//    product = await GetSingleProduct(urlPath);
-
-    // console.log('*************');
-    // console.log(product.data.content.productItem);
 
     return router.isFallback ? (
       <h1>Loading...</h1>
@@ -105,16 +98,4 @@ import type {
        <ProductView product={data.content.productItem} relatedProducts={relatedProducts} data={data} />
     )
   }
-//  const Woman = async () => {
-//   const router = useRouter()
-// //   const { pid } = router.query
-//   const urlPath = router.asPath;
-
-// GetSingleProduct(urlPath);
-
-//   return (
-//     <ProductView product={product.data.content.productItem} relatedProducts={relatedProducts} data={product} />
-//   )
-//  }
-// export default Woman
 Woman.Layout = Layout

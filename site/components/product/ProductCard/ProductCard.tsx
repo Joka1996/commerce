@@ -46,15 +46,6 @@ const ProductCard: FC<Props> = ({
     const externaImageLoader = ({ src }: { src: string }) =>
   `https://localtest.me:5001${src}`;
   
-  
-
-    //hämta value från elementet
-    // const handleClick = (e: ChangeEvent<HTMLImageElement>) => {
-    //   e.preventDefault();
-    //   setParam(e.target.alt);
-    //     console.log(param);
-    //     GetSingleProduct(param);
-    // }
 
   return (
     //ändrat till url från slug
