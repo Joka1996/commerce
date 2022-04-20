@@ -35,11 +35,11 @@ const UserNav: React.FC<{
   const DropdownTrigger = isCustomerLoggedIn
     ? DropdownTriggerInst
     : React.Fragment
-
+  
   return (
     <nav className={cn(s.root, className)}>
       <ul className={s.list}>
-        {process.env.COMMERCE_CART_ENABLED && (
+        {/* {process.env.COMMERCE_CART_ENABLED && ( */}
           <li className={s.item}>
             <Button
               className={s.item}
@@ -56,8 +56,8 @@ const UserNav: React.FC<{
               )}
             </Button>
           </li>
-        )}
-        {process.env.COMMERCE_WISHLIST_ENABLED && (
+        {/* )} */}
+        {/* {process.env.COMMERCE_WISHLIST_ENABLED && ( */}
           <li className={s.item}>
             <Link href="/wishlist">
               <a onClick={closeSidebarIfPresent} aria-label="Wishlist">
@@ -65,8 +65,8 @@ const UserNav: React.FC<{
               </a>
             </Link>
           </li>
-        )}
-        {process.env.COMMERCE_CUSTOMERAUTH_ENABLED && (
+        {/* )} */}
+        {/* {process.env.COMMERCE_CUSTOMERAUTH_ENABLED && ( */}
           <li className={s.item}>
             <Dropdown>
               <DropdownTrigger>
@@ -81,7 +81,7 @@ const UserNav: React.FC<{
               <CustomerMenuContent />
             </Dropdown>
           </li>
-        )}
+        {/* )} */}
         <li className={s.mobileMenu}>
           <Button
             className={s.item}

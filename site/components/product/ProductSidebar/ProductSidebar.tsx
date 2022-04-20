@@ -31,22 +31,21 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product,data, className }) =>
 
   // const variant = getProductVariant(product, selectedOptions)
 
-
-    //kommenterat ut själv
-  // const addToCart = async () => {
-  //   setLoading(true)
-  //   try {
-  //     await addItem({
-  //       productId: String(product.id),
-  //       //kommenterat ut själv
-  //       // variantId: String(variant ? variant.id : product.variants[0]?.id),
-  //     })
-  //     openSidebar()
-  //     setLoading(false)
-  //   } catch (err) {
-  //     setLoading(false)
-  //   }
-  // }
+  //kommenterat ut själv
+  const addToCart = async () => {
+    setLoading(true)
+    try {
+      await addItem({
+        productId: String(product.id),
+        //kommenterat ut själv
+        // variantId: String(variant ? variant.id : product.variants[0]?.id),
+      })
+      openSidebar()
+      setLoading(false)
+    } catch (err) {
+      setLoading(false)
+    }
+  }
 
   return (
     <div className={className}>
@@ -78,7 +77,7 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product,data, className }) =>
             aria-label="Add to Cart"
             type="button"
             className={s.button}
-            // onClick={addToCart}
+            onClick={addToCart}
             loading={loading}
             // disabled={variant?.availableForSale === false}
           >
