@@ -10,8 +10,7 @@ const isVendure = provider === '@vercel/commerce-vendure'
 module.exports = withCommerceConfig({
     //lagt till detta
     images: {
-      domains: ['localtest.me:5001'],
-     
+      domains: ['localtest.me:5001'], 
     },
   commerce,
   i18n: {

@@ -40,8 +40,6 @@ const ProductCard: FC<Props> = ({
   )
 
     //i denna fil har jag anpassat bilder, samt bytt till formattedPrice
-    const [param, setParam] = useState("");
-
     //loader 
     const externaImageLoader = ({ src }: { src: string }) =>
   `https://localtest.me:5001${src}`;
