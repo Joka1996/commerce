@@ -68,7 +68,7 @@ import type {
       revalidate: 200,
     }
   }
-  ////
+  ////måste vara med, men oklart vad det har för betydelse
   export async function getStaticPaths({ locales }: GetStaticPathsContext) {
     const { products } = await commerce.getAllProductPaths()
 

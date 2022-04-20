@@ -31,10 +31,6 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
   setSelectedOptions,
 }) => {
   
-  //Gör om till text
-  let sizeText = filter2Text.toString();
-  let colorText = filter1Text.toString();
-
   return (
     <div>
       {/* FÄRG */}
@@ -43,86 +39,44 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
         </h2>
         <div role="listbox" className="flex flex-row py-4">
       {filter1Items.map((opt) => {
-        {/* {console.log(opt.value)} */}
-        // const active = selectedOptions[opt.name.toLocaleLowerCase()]
         return (
-          <Link href={`/product${opt.url}`}>
           <div className="pb-4" key={opt.url}>
+          <Link href={`${opt.url}`}>
+          <a>
          <Swatch
           key="Color"
           color={opt.value}
           active={opt.isActive}
           label={opt.name}
           variant={opt.value}
-          // onClick={() => {
-          //   setSelectedOptions((selectedOptions) => {
-          //     return {
-          //       ...selectedOptions,
-          //       //Här vill jag skicka med Text (filter1Text) + färg, alltså färg och ex green
-          //       [colorText.toLowerCase()]: v.value.toLowerCase(),
-          //     }
-          //   })
-          // }}
         />
+        </a>
+           </Link>
         </div>
-        </Link>
         )
       })}
       </div>
-
-        {/* <div role="listbox" className="flex flex-row py-4">
-      {filter1Items.map((opt) => (
- 
-      <div className="pb-4" key={opt.url}>
-        <Swatch
-          key="Color"
-          // active={v.label.toLowerCase() === active}
-          active={opt.isActive}
-          value={opt.value}
-          //color={hexColors ? v.hexColors[0] : ''}
-          color={opt.value}
-          onClick={() => {
-            setSelectedOptions((selectedOptions) => {
-              return {
-                ...selectedOptions,
-                [opt.value.toLowerCase()]: opt.value.toLowerCase(),
-              }
-            })
-          }}
-        />
-        </div>
-    ))}
-     </div> */}
 
      {/* SIZE */}
      <h2 className="uppercase font-medium text-sm tracking-wide">
      {filter2Text}
         </h2>
         <div role="listbox" className="flex flex-row py-4">
-      {filter2Items.map((v, i: number) => {
-        {/* {console.log(opt.value)} */}
-        const active = selectedOptions[v.name.toLocaleLowerCase()]
+      {filter2Items.map((opt) => {
         return (
-          <Link href={`/product${v.url}`}>
-          <div className="pb-4" key={v.url}>
+          <div className="pb-4" key={opt.url}>
+          <Link href={`${opt.url}`}>
+          <a>
          <Swatch
           key="Size"
-          url={v.url}
-          active={v.isActive}
-          label={v.name}
-          variant={v.value}
-          // onClick={() => {
-          //   setSelectedOptions((selectedOptions) => {
-          //     return {
-          //       ...selectedOptions,
-          //       //Här vill jag skicka med Text (filter2Text) + storlek, alltså Size och ex L
-          //       [sizeText.toLowerCase()]: v.value.toLowerCase(),
-          //     }
-          //   })
-          // }}
+          url={opt.url}
+          active={opt.isActive}
+          label={opt.name}
+          variant={opt.value}
         />
+        </a>
+          </Link>
         </div>
-        </Link>
         )
       })}
       </div>
