@@ -58,7 +58,6 @@ const ProductCard: FC<Props> = ({
             {product?.images && (
               <div>
                 <Image
-                  // onClick={handleClick}
                   quality="85"
                   //lagt till egen loader
                   loader={externaImageLoader}
@@ -99,7 +98,6 @@ const ProductCard: FC<Props> = ({
               {product?.images && (
                 <div>
                   <Image
-                    // onClick={handleClick}
                   //lagt till egen loader
                     loader={externaImageLoader}
                     alt={product.name || 'Product Image'}
@@ -137,7 +135,6 @@ const ProductCard: FC<Props> = ({
                 <div>
                   {/* dessa är de stora bilderna */}
                   <Image
-                    // onClick={handleClick}
                     loader={externaImageLoader}
                     alt={product.name || 'Product Image'}
                     className={s.productImage}

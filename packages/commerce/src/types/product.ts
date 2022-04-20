@@ -41,7 +41,7 @@ export type LitiumOptionValues= {
   value: string
   __typename:string
 }
-
+//egen
 export type LitiumOption = {
   filter1Text: string
   filter2Text : string
@@ -51,29 +51,30 @@ export type LitiumOption = {
   url: string
   value: LitiumOptionValues[]
 }
-
-export type filter1Items = {
-  filter1Text: string
-  isActive: boolean,
-  value: string,
-  enabled: boolean,
-  name: string,
-  url: string
-}
 //egen
-export type filter2Items = {
-  filter2Text : string
-  isActive: boolean,
-  value: string,
-  enabled: boolean,
-  name: string,
-  url: string
-}
+// export type filter1Items = {
+//   filter1Text: string
+//   isActive: boolean,
+//   value: string,
+//   enabled: boolean,
+//   name: string,
+//   url: string
+// }
+// //egen
+// export type filter2Items = {
+//   filter2Text : string
+//   isActive: boolean,
+//   value: string,
+//   enabled: boolean,
+//   name: string,
+//   url: string
+// }
 
-
+//egen
 export type filter1Text = {
   filter1Text: string
 }
+//egen
 export type filter2Text = {
   filter2Text: string
 }

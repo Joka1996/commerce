@@ -104,7 +104,6 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
         const active = selectedOptions[v.name.toLocaleLowerCase()]
         return (
           <Link href={`/product${v.url}`}>
-
           <div className="pb-4" key={v.url}>
          <Swatch
           key="Size"
