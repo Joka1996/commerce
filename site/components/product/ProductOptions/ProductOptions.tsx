@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import { Swatch } from '@components/product'
-//lägg till de tre första som import
+//Lagt till mina types från product.ts
 import type {LitiumOption, filter1Items, filter2Items, filter1Text, filter2Text ,ProductOption } from '@commerce/types/product'
 import { SelectedOptions } from '../helpers'
 import React, { ChangeEvent, useState } from "react";
@@ -57,14 +57,14 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
       })}
       </div>
 
-     {/* SIZE */}
+     {/* Storlekar */}
      <h2 className="uppercase font-medium text-sm tracking-wide">
      {filter2Text}
         </h2>
         <div role="listbox" className="flex flex-row py-4">
       {filter2Items.map((opt) => {
         return (
-          <div className="pb-4" key={opt.url}>
+          <div className="pb-4" key={opt.url} title={opt.value}>
           <Link href={`${opt.url}`}>
           <a>
          <Swatch

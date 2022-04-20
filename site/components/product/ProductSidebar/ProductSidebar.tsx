@@ -47,10 +47,6 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product,data, className }) =>
   //     setLoading(false)
   //   }
   // }
-  
-      // product.filter1Items.map((options)=> (
-      //   console.log(options)  
-      // ))
 
   return (
     <div className={className}>
@@ -77,26 +73,21 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product,data, className }) =>
         <Rating value={4} />
         <div className="text-accent-6 pr-1 font-medium text-sm">36 reviews</div>
       </div>
-
-      {/* <div>
-        //kommenterat ut själv
-        {process.env.COMMERCE_CART_ENABLED && (
+       <div>
           <Button
             aria-label="Add to Cart"
             type="button"
             className={s.button}
-            onClick={addToCart}
+            // onClick={addToCart}
             loading={loading}
-            //kommenterat ut själv
             // disabled={variant?.availableForSale === false}
           >
-            {/* {variant?.availableForSale === false
+            {/**Ändrat till egen type från litium. */}
+            {product.isInStock === false
               ? 'Not Available'
-              : 'Add To Cart'} */}
-          {/* </Button> */}
-        {/* )} */}
-      {/* </div> */} 
-
+              : 'Add To Cart'}
+           </Button> 
+      </div> 
       <div className="mt-6">
         {/* <Collapse title="Care">
               Kanske ta bort hela care, finns inget som passar här
