@@ -9,10 +9,20 @@ import { Bag, Cross, Check } from '@components/icons'
 import useCart from '@framework/cart/use-cart'
 import usePrice from '@framework/product/use-price'
 import SidebarLayout from '@components/common/SidebarLayout'
+import GetCart from '@framework/api/endpoints/GetCart'
+
+
+async function getData(){
+  const cookieObj = new URLSearchParams(document.cookie.replaceAll("; ","&"))
+  let contextId = String(cookieObj.get("cartContext"));
+  return await GetCart(contextId)
+}
+// console.log(getCookie());
 
 const CartSidebarView: FC = () => {
   const { closeSidebar, setSidebarView } = useUI()
-  const { data, isLoading, isEmpty } = useCart()
+  //byta ut useCart data till egna getCart
+  const { data, isLoading, isEmpty } = getData()
 
   const { price: subTotal } = usePrice(
     data && {
@@ -35,7 +45,7 @@ const CartSidebarView: FC = () => {
   return (
     <SidebarLayout
       className={cn({
-        [s.empty]: error || success || isLoading || isEmpty,
+        // [s.empty]: error || success || isLoading || isEmpty,
       })}
       handleClose={handleClose}
     >
@@ -123,7 +133,7 @@ const CartSidebarView: FC = () => {
             </div>
           </div>
         </>
-      )}
+        )} 
     </SidebarLayout>
   )
 }

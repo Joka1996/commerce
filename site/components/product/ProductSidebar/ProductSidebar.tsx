@@ -4,12 +4,23 @@ import { FC, useEffect, useState } from 'react'
 import { ProductOptions } from '@components/product'
 import type { Product } from '@commerce/types/product'
 import { Button, Text, Rating, Collapse, useUI } from '@components/ui'
+import CreateCart from '@framework/api/endpoints/CreateCart'
+import AddToCart from '@framework/api/endpoints/AddToCart'
+import GetCart from '@framework/api/endpoints/GetCart'
+import RemoveCart from '@framework/api/endpoints/RemoveCart'
+
+
+//import GetSingleProduct from '@framework/api/endpoints/fetchSingleProduct'
+
+
 import {
   getProductVariant,
   //kommenterat ut själv
   // selectDefaultOptionFromProduct,
   SelectedOptions,
 } from '../helpers'
+
+
 
 interface ProductSidebarProps {
   product: Product
@@ -18,7 +29,7 @@ interface ProductSidebarProps {
 }
   
 const ProductSidebar: FC<ProductSidebarProps> = ({ product,data, className }) => {
-  const addItem = useAddItem()
+  // const addItem = useAddItem()
   const { openSidebar } = useUI()
   const [loading, setLoading] = useState(false)
   const [selectedOptions, setSelectedOptions] = useState<SelectedOptions>({})
@@ -30,22 +41,77 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product,data, className }) =>
   // }, [product])
 
   // const variant = getProductVariant(product, selectedOptions)
-
-  //kommenterat ut själv
   const addToCart = async () => {
     setLoading(true)
     try {
-      await addItem({
-        productId: String(product.id),
-        //kommenterat ut själv
-        // variantId: String(variant ? variant.id : product.variants[0]?.id),
-      })
-      openSidebar()
+      //skicka context-id och product-id till lägg i kassan.
+      //Skapan en funktion för att kolla cookies, finns det en cookie lagrad använd den annars skapa ett cnytt contextid och lagra som cookie
+      function setCookie(cname: string, cvalue: string, exdays: number) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        let expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+      }
+      //Hämta cookien
+      function getCookie(cname: string) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+      //kolla om kaka finns, finns den skicka till funktionen annars skapa en ny och skicka till funktionen 
+      async function checkCookie() {    
+        let cartContext = getCookie("cartContext");
+        if (cartContext != "") {
+          let productId = String(product.id);
+          // console.log(cartContext);
+          await AddToCart(productId, cartContext);
+          //skicka även contextID till getCart
+          await GetCart(cartContext);
+        } else {
+          let context = await CreateCart();
+          let stringContext = String(context);
+          //spara den nya som cookie, den kommer att lagras i 24h
+          setCookie("cartContext", stringContext, 1)
+          let productId = String(product.id);
+          await AddToCart(productId, cartContext);
+          //skicka även contextID till getCart
+          await GetCart(cartContext);
+        }
+      }
+      //kassan just nu
+      //CfDJ8C5VxuvQNgNMvfFSYAHiHJsJwJJuMO-3sBuns7e_zF5nUjLzA1AAIX9EeQc_JFmluMQHJ-wVtLUrflu9kRF7sqfEcenJqBHQokbNBLvKQfsJSn2X4abqvobIQiz9QFGykXfgvpKSKs24C9bPzSqLxIA
+
+
+      //OG i denna try
+      // await addItem({
+      //   productId: String(product.id),
+      //   //kommenterat ut själv
+      //   // variantId: String(variant ? variant.id : product.variants[0]?.id),
+      // })
+      //kolla efter cookie
+      await checkCookie()
       setLoading(false)
+      openSidebar()
     } catch (err) {
+      console.log(err);
       setLoading(false)
     }
   }
+  //tester av funktioner
+  // console.log('*************');
+  // console.log(CreateCart());
+  // console.log(AddToCart());
+  // console.log(RemoveCart());
 
   return (
     <div className={className}>

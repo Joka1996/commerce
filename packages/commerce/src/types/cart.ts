@@ -8,17 +8,17 @@ export type SelectedOption = {
   /// The product option’s value.
   value: string
 }
-
+//lagt till ?
 export type LineItem = {
-  id: string
-  variantId: string
-  productId: string
-  name: string
-  quantity: number
-  discounts: Discount[]
+  id?: string
+  variantId?: string
+  productId?: string
+  name?: string
+  quantity?: number
+  discounts?: Discount[]
   // A human-friendly unique string automatically generated from the product’s name
-  path: string
-  variant: ProductVariant
+  path?: string
+  variant?: ProductVariant
   options?: SelectedOption[]
 }
 
@@ -56,28 +56,29 @@ export type ProductVariant = {
   depth?: Measurement
 }
 
+//Här kan jag behöva lägga till mina egna types. Gjort alla till ?
 // Shopping cart, a.k.a Checkout
 export type Cart = {
-  id: string
+  id?: string
   // ID of the customer to which the cart belongs.
   customerId?: string
   // The email assigned to this cart
   email?: string
   // The date and time when the cart was created.
-  createdAt: string
+  createdAt?: string
   // The currency used for this cart
-  currency: { code: string }
+  currency?: { code: string }
   // Specifies if taxes are included in the line items.
-  taxesIncluded: boolean
-  lineItems: LineItem[]
+  taxesIncluded?: boolean
+  lineItems?: LineItem[]
   // The sum of all the prices of all the items in the cart.
   // Duties, taxes, shipping and discounts excluded.
-  lineItemsSubtotalPrice: number
+  lineItemsSubtotalPrice?: number
   // Price of the cart before duties, shipping and taxes.
-  subtotalPrice: number
+  subtotalPrice?: number
   // The sum of all the prices of all the items in the cart.
   // Duties, taxes and discounts included.
-  totalPrice: number
+  totalPrice?: number
   // Discounts that have been applied on the cart.
   discounts?: Discount[]
 }

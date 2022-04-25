@@ -29,7 +29,7 @@ export const handler: SWRHook<GetCartHook> = {
         () =>
           Object.create(response, {
             isEmpty: {
-              get() {
+              get() {  
                 return (response.data?.lineItems?.length ?? 0) <= 0
               },
               enumerable: true,
