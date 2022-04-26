@@ -11,6 +11,11 @@ module.exports = withCommerceConfig({
     //lagt till detta
     images: {
       domains: ['localtest.me:5001'], 
+    },  
+    //Lagt till för att kunna göra top-level-await
+    webpack: (config) => {
+      config.experiments = { topLevelAwait: true };
+      return config;
     },
   commerce,
   i18n: {

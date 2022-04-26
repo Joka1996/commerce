@@ -7,9 +7,10 @@ import GetCart from 'api/endpoints/GetCart'
 export default useCart as UseCart<typeof handler>
 
 export const handler: SWRHook<any> = {
-
+ 
   fetchOptions: {
     query: '',
+    url: "",
   },
   async fetcher() {
     return {
@@ -21,8 +22,14 @@ export const handler: SWRHook<any> = {
       lineItemsSubtotalPrice: '',
       subtotalPrice: 0,
       totalPrice: 0,
+      //lagt till
+      items: [],
+      formattedTotalPrice: "",
+      vatAmount: 0,
+      vatRate:0,
     }
   },
+  
   useHook:
     ({ useData }) =>
     (input) => {

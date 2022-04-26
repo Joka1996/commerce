@@ -88,8 +88,6 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product,data, className }) =>
           await GetCart(cartContext);
         }
       }
-      //kassan just nu
-      //CfDJ8C5VxuvQNgNMvfFSYAHiHJsJwJJuMO-3sBuns7e_zF5nUjLzA1AAIX9EeQc_JFmluMQHJ-wVtLUrflu9kRF7sqfEcenJqBHQokbNBLvKQfsJSn2X4abqvobIQiz9QFGykXfgvpKSKs24C9bPzSqLxIA
 
 
       //OG i denna try
@@ -111,7 +109,7 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product,data, className }) =>
   // console.log('*************');
   // console.log(CreateCart());
   // console.log(AddToCart());
-  // console.log(RemoveCart());
+  // console.log(RemoveCart());  
 
   return (
     <div className={className}>

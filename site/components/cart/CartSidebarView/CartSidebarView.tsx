@@ -1,6 +1,6 @@
 import cn from 'clsx'
 import Link from 'next/link'
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import s from './CartSidebarView.module.css'
 import CartItem from '../CartItem'
 import { Button, Text } from '@components/ui'
@@ -11,29 +11,55 @@ import usePrice from '@framework/product/use-price'
 import SidebarLayout from '@components/common/SidebarLayout'
 import GetCart from '@framework/api/endpoints/GetCart'
 
+//Detta fungerar ej
+//hämta cookies och data
+//  function getCookie(){
+//   const cookieObj = new URLSearchParams(document.cookie.replaceAll("; ","&"))
+//   let contextId = String(cookieObj.get("cartContext"));
+//   console.log(contextId);
+//   return contextId;
+// }
 
-async function getData(){
-  const cookieObj = new URLSearchParams(document.cookie.replaceAll("; ","&"))
-  let contextId = String(cookieObj.get("cartContext"));
-  return await GetCart(contextId)
-}
-// console.log(getCookie());
+// async function getData() {
+//   let id = getCookie();
+
+//   let data = await GetCart(id);
+//   return data
+// }
+// let cartData = await getData()
+
+
+let context ="CfDJ8C5VxuvQNgNMvfFSYAHiHJt6MQBCG9qaqwxEUvYOatYk9HzJ-LzgO6DJD1WT-aJcIPfQLNphbMqu2sd0w63-HyD5B7aI9deOxKa-_7VuXBITjyl1JJw63SXJ4UiznYXox11vEhFzfLr0d4mnLLtkxss"
+let cartData = await GetCart(context)
+// console.log(cartData.data.cart);
 
 const CartSidebarView: FC = () => {
+  // console.log(cartData.data.cart.items);
+  const data  = cartData.data.cart;
+  console.log(data);
+  //sätt dessa till false så att kassan visas
+  let isLoading = false;
+  let isEmpty = false;
+  // console.log(data);
+
   const { closeSidebar, setSidebarView } = useUI()
-  //byta ut useCart data till egna getCart
-  const { data, isLoading, isEmpty } = getData()
+
+  //byta ut useCart data till egna getCart  
+  // const {data, isLoading, isEmpty} = useCart()
 
   const { price: subTotal } = usePrice(
     data && {
-      amount: Number(data.subtotalPrice),
-      currencyCode: data.currency.code,
+      //bytt ut subtotal till unitPrice
+      amount: Number(data.unitPrice),
+      //bytt ut currency.code
+      currencyCode: data.formattedPrice,
     }
   )
   const { price: total } = usePrice(
     data && {
-      amount: Number(data.totalPrice),
-      currencyCode: data.currency.code,
+      amount: Number(data.formattedTotalPrice),
+      //bytt ut currency.code
+      currencyCode: data.formattedPrice,
     }
   )
   const handleClose = () => closeSidebar()
@@ -45,7 +71,7 @@ const CartSidebarView: FC = () => {
   return (
     <SidebarLayout
       className={cn({
-        // [s.empty]: error || success || isLoading || isEmpty,
+        [s.empty]: error || success || isLoading || isEmpty,
       })}
       handleClose={handleClose}
     >
@@ -80,7 +106,7 @@ const CartSidebarView: FC = () => {
             Thank you for your order.
           </h2>
         </div>
-      ) : (
+      ) : ( 
         <>
           <div className="px-4 sm:px-6 flex-1">
             <Link href="/cart">
@@ -91,25 +117,26 @@ const CartSidebarView: FC = () => {
               </a>
             </Link>
             <ul className={s.lineItemsList}>
-              {data!.lineItems.map((item: any) => (
+              {/* Bytt ut till cartData  */}
+             {data.items.map((item: any) => (
                 <CartItem
                   key={item.id}
                   item={item}
-                  currencyCode={data!.currency.code}
+                  // currencyCode={data!.formattedTotalPrice}
                 />
               ))}
-            </ul>
-          </div>
+            </ul> 
+         </div> 
 
           <div className="flex-shrink-0 px-6 py-6 sm:px-6 sticky z-20 bottom-0 w-full right-0 left-0 bg-accent-0 border-t text-sm">
             <ul className="pb-2">
               <li className="flex justify-between py-1">
                 <span>Subtotal</span>
-                <span>{subTotal}</span>
+                <span>{data.totalPrice}</span>
               </li>
               <li className="flex justify-between py-1">
                 <span>Taxes</span>
-                <span>Calculated at checkout</span>
+                <span>{data.vatAmount}</span>
               </li>
               <li className="flex justify-between py-1">
                 <span>Shipping</span>
@@ -118,12 +145,14 @@ const CartSidebarView: FC = () => {
             </ul>
             <div className="flex justify-between border-t border-accent-2 py-3 font-bold mb-2">
               <span>Total</span>
-              <span>{total}</span>
+              {/* Denna behövs inte då den räknar själv */}
+              {/* <span>{total}</span> */}
+              <span>{data.totalPrice}</span>
             </div>
             <div>
               {process.env.COMMERCE_CUSTOMCHECKOUT_ENABLED ? (
                 <Button Component="a" width="100%" onClick={goToCheckout}>
-                  Proceed to Checkout ({total})
+                  Proceed to Checkout ({data.totalPrice})
                 </Button>
               ) : (
                 <Button href="/checkout" Component="a" width="100%">
@@ -133,7 +162,7 @@ const CartSidebarView: FC = () => {
             </div>
           </div>
         </>
-        )} 
+       )}  
     </SidebarLayout>
   )
 }

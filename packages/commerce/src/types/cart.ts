@@ -8,6 +8,20 @@ export type SelectedOption = {
   /// The product option’s value.
   value: string
 }
+//gjort egen type
+export type items = {
+  articleNumber: string
+  description: string
+  formattedTotalPrice: string
+  formattedUnitPrice: string
+  id: string
+  quantity: number
+  totalPrice: number
+  unitPrice: number
+  vatAmount: number
+  vatRate: number
+}
+
 //lagt till ?
 export type LineItem = {
   id?: string
@@ -20,6 +34,16 @@ export type LineItem = {
   path?: string
   variant?: ProductVariant
   options?: SelectedOption[]
+  //lagt till mina egna härefter
+  formattedTotalPrice?: string
+  totalPrice: number
+  unitPrice: number
+  vatAmount: number
+  vatRate:number
+  items : items[]
+  articleNumber: string
+  description: string
+  formattedUnitPrice: string
 }
 
 export type ProductVariant = {
@@ -81,6 +105,11 @@ export type Cart = {
   totalPrice?: number
   // Discounts that have been applied on the cart.
   discounts?: Discount[]
+  //egen 
+  formattedTotalPrice?: string
+  vatAmount: number
+  vatRate:number
+  items: items[]
 }
 
 /**

@@ -7,10 +7,6 @@ import fetch from "node-fetch";
 //Radera ETT föremål från kassan
 export default async function RemoveCart() { 
 
-
-    //Rensa cookies
-    // document.cookie = "cartContext=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-
     let RemoveCart = JSON.stringify({
         query: "mutation RemoveItemFromCart($item: RemoveItemFromCartType!) {\r\n cartRemoveItem (item: $item) {\r\n      result {\r\n      message\r\n          success\r\n    }\r\n      data {\r\n        ... cart\r\n      }\r\n    }\r\n}\r\n\r\nfragment price on PriceInterfaceType {\r\n  formattedTotalPrice\r\n  totalPrice\r\n  vatAmount\r\n  vatRate\r\n}\r\n\r\nfragment cart on CartType {\r\n    ...price\r\n    items {\r\n      id\r\n      articleNumber\r\n      description\r\n      quantity\r\n      formattedUnitPrice\r\n      unitPrice\r\n      ...price\r\n    }\r\n}",
         variables: {"item":{"id":"1"}}

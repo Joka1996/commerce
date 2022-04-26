@@ -19,7 +19,7 @@ export default async function CreateCart() {
       const response = await fetch("https://exjobb.localtest.me:5001/storefront.graphql", {
           agent: httpsAgent,
           method: "POST",
-          headers:  { "Content-Type": "application/json", "Accept": "application/json" },
+          headers:  { "Content-Type": "application/json", "Accept": "application/json",  },
           //anväd query och variabel från createAcart
           body: createACart,
       })

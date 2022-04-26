@@ -42,12 +42,12 @@ export function formatVariantPrice({
 
   return { price, basePrice, discount }
 }
-
+//lagt till ett "?" vid currency vode
 export default function usePrice(
   data?: {
     amount: number
     baseAmount?: number
-    currencyCode: string
+    currencyCode?: string
   } | null
 ) {
   const { amount, baseAmount, currencyCode } = data ?? {}

@@ -7,10 +7,10 @@ import fetch from "node-fetch";
 export default async function GetCart(contextId: string){
 
     let GetCart = JSON.stringify({
-        query: "query GetCart {\r\n  __typename\r\n  cart {\r\n    ...cart\r\n    shippingOptionId\r\n    paymentOptionId\r\n    supportedPaymentOptions {\r\n      ...cartOption\r\n    }\r\n    supportedShippingOptions {\r\n      ...cartOption\r\n    }\r\n    paymentWidget {\r\n      redirectUrl\r\n      responseString\r\n    }\r\n  }\r\n}\r\n\r\nfragment price on PriceInterfaceType {\r\n  formattedTotalPrice\r\n  totalPrice\r\n  vatAmount\r\n  vatRate\r\n}\r\n\r\nfragment cart on CartType {\r\n  ...price\r\n    items {\r\n    id\r\n    articleNumber\r\n    quantity\r\n    description\r\n    formattedUnitPrice\r\n    unitPrice\r\n    ...price\r\n    }\r\n}\r\n\r\nfragment cartOption on CartOptionType {\r\n  id\r\n  description\r\n  name\r\n}",        variables: {"item":{"articleNumber": "4b3aab05-ff67-49c7-a3f6-5ed56d0a153e",
+        query: "query GetCart {\r\n  __typename\r\n  cart {\r\n    ...cart\r\n    shippingOptionId\r\n    paymentOptionId\r\n    supportedPaymentOptions {\r\n      ...cartOption\r\n    }\r\n    supportedShippingOptions {\r\n      ...cartOption\r\n    }\r\n    paymentWidget {\r\n      redirectUrl\r\n      responseString\r\n    }\r\n  }\r\n}\r\n\r\nfragment price on PriceInterfaceType {\r\n  formattedTotalPrice\r\n  totalPrice\r\n  vatAmount\r\n  vatRate\r\n}\r\n\r\nfragment cart on CartType {\r\n  ...price\r\n    items {\r\n    id\r\n    articleNumber\r\n    quantity\r\n    description\r\n    formattedUnitPrice\r\n    unitPrice\r\n    ...price\r\n    }\r\n}\r\n\r\nfragment cartOption on CartOptionType {\r\n  id\r\n  description\r\n  name\r\n}",
         variables: {}
-    }}
-      })
+    }
+      )
   
       const httpsAgent = new https.Agent({
           rejectUnauthorized: false,
@@ -19,7 +19,7 @@ export default async function GetCart(contextId: string){
         const response = await fetch("https://exjobb.localtest.me:5001/storefront.graphql", {
             agent: httpsAgent,
             method: "POST",
-            headers:  { "Content-Type": "application/json", "Accept": "application/json", 
+            headers:  { "Content-Type": "application/json", "Accept": "application/json", "Cookie": contextId,
             "Cart-Context-Id" : contextId },
             //anväd query och variabel från createAcart
             body: GetCart,
@@ -27,9 +27,9 @@ export default async function GetCart(contextId: string){
         try {
             const data = await response.json()
             //logga allt som kassan innehåller. 
-            console.log(data);
-            console.log('*************');
-            console.log(contextId);
+            // console.log(data);
+            // console.log('*************');
+            // console.log(contextId);
             return data 
         } catch (error) {
               console.log(error);
