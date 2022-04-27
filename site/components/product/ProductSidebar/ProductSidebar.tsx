@@ -99,6 +99,7 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product,data, className }) =>
       //kolla efter cookie
       await checkCookie()
       setLoading(false)
+      // location.reload(); 
       openSidebar()
     } catch (err) {
       console.log(err);

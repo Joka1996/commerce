@@ -10,6 +10,7 @@ import useUpdateItem from '@framework/cart/use-update-item'
 import useRemoveItem from '@framework/cart/use-remove-item'
 import Quantity from '@components/ui/Quantity'
 import GetCart from '@framework/api/endpoints/GetCart'
+import RemoveCart from '@framework/api/endpoints/RemoveCart'
 
 // //hämta cookies och data
 // async function getData(){
@@ -85,7 +86,15 @@ const CartItem = ({
   const handleRemove = async () => {
     setRemoving(true)
     try {
-      await removeItem(item)
+      //Här ska ju egentligen cookies hämtas
+        const cookieObj = new URLSearchParams(document.cookie.replaceAll("; ","&"))
+          let contextId = String(cookieObj.get("cartContext"));
+          let productId = item.id;
+          console.log(productId);
+          // console.log(contextId);
+      // let contextId = "CfDJ8C5VxuvQNgNMvfFSYAHiHJt6MQBCG9qaqwxEUvYOatYk9HzJ-LzgO6DJD1WT-aJcIPfQLNphbMqu2sd0w63-HyD5B7aI9deOxKa-_7VuXBITjyl1JJw63SXJ4UiznYXox11vEhFzfLr0d4mnLLtkxss"
+      // await removeItem(item)
+      await RemoveCart(contextId, productId);
     } catch (error) {
       setRemoving(false)
     }
@@ -103,7 +112,7 @@ const CartItem = ({
     // do this differently as it could break easily
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [item.quantity])
-  
+
   return (
     <li
       className={cn(s.root, {
@@ -112,23 +121,25 @@ const CartItem = ({
       {...rest}
     >
       <div className="flex flex-row space-x-4 py-4">
-        {/* <div className="w-16 h-16 bg-violet relative overflow-hidden cursor-pointer z-0">
-          <Link href={`/product/${item.path}`}>
+        <div className="w-16 h-16 bg-violet relative overflow-hidden cursor-pointer z-0">
+          {/* <Link href={`/product/${item.path}`}> */}
             <a>
               <Image
                 onClick={() => closeSidebarIfPresent()}
                 className={s.productImage}
                 width={150}
                 height={150}
-                src={item.variant.image?.url || placeholderImg}
-                alt={item.variant.image?.altText || "Product Image"}
+                src={placeholderImg}
+                // item.variant.image?.url || 
+                alt={"Product Image"}
                 unoptimized
+
               />
             </a>
-          </Link>
-        </div> */}
+          {/* </Link> */}
+        </div>
         <div className="flex-1 flex flex-col text-base">
-          <Link href={`/product/${item.path}`}>
+          {/* <Link href={`/product/${item.path}`}> */}
             <a>
               <span
                 className={s.productName}
@@ -138,7 +149,7 @@ const CartItem = ({
                 {item.description}
               </span>
             </a>
-          </Link>
+          {/* </Link> */}
           {/* {options && options.length > 0 && (
             <div className="flex items-center pb-1">
               {options.map((option: ItemOption, i: number) => (
@@ -170,7 +181,7 @@ const CartItem = ({
           )} */}
         </div>
         <div className="flex flex-col justify-between space-y-2 text-sm">
-          <span>{price} {item.unitPrice} </span>
+          <span>{price} {item.unitPrice} SEK</span>
         </div>
       </div>
       {/* {variant === 'default' && ( */}

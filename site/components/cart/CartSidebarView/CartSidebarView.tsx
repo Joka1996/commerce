@@ -132,11 +132,11 @@ const CartSidebarView: FC = () => {
             <ul className="pb-2">
               <li className="flex justify-between py-1">
                 <span>Subtotal</span>
-                <span>{data.totalPrice}</span>
+                <span>{data.totalPrice} SEK</span>
               </li>
               <li className="flex justify-between py-1">
                 <span>Taxes</span>
-                <span>{data.vatAmount}</span>
+                <span>{data.vatAmount} SEK</span>
               </li>
               <li className="flex justify-between py-1">
                 <span>Shipping</span>
@@ -147,7 +147,7 @@ const CartSidebarView: FC = () => {
               <span>Total</span>
               {/* Denna behövs inte då den räknar själv */}
               {/* <span>{total}</span> */}
-              <span>{data.totalPrice}</span>
+              <span>{data.totalPrice} SEK</span>
             </div>
             <div>
               {process.env.COMMERCE_CUSTOMCHECKOUT_ENABLED ? (

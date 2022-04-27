@@ -5,11 +5,11 @@ import fetch from "node-fetch";
 
 
 //Radera ETT föremål från kassan
-export default async function RemoveCart() { 
+export default async function RemoveCart(contextId: string, productId: string) { 
 
     let RemoveCart = JSON.stringify({
         query: "mutation RemoveItemFromCart($item: RemoveItemFromCartType!) {\r\n cartRemoveItem (item: $item) {\r\n      result {\r\n      message\r\n          success\r\n    }\r\n      data {\r\n        ... cart\r\n      }\r\n    }\r\n}\r\n\r\nfragment price on PriceInterfaceType {\r\n  formattedTotalPrice\r\n  totalPrice\r\n  vatAmount\r\n  vatRate\r\n}\r\n\r\nfragment cart on CartType {\r\n    ...price\r\n    items {\r\n      id\r\n      articleNumber\r\n      description\r\n      quantity\r\n      formattedUnitPrice\r\n      unitPrice\r\n      ...price\r\n    }\r\n}",
-        variables: {"item":{"id":"1"}}
+        variables: {"item":{"id":productId}}
       })
   
       const httpsAgent = new https.Agent({
@@ -20,7 +20,7 @@ export default async function RemoveCart() {
             agent: httpsAgent,
             method: "POST",
             headers:  { "Content-Type": "application/json", "Accept": "application/json", 
-            "Cart-Context-Id" : "CfDJ8C5VxuvQNgNMvfFSYAHiHJsJwJJuMO-3sBuns7e_zF5nUjLzA1AAIX9EeQc_JFmluMQHJ-wVtLUrflu9kRF7sqfEcenJqBHQokbNBLvKQfsJSn2X4abqvobIQiz9QFGykXfgvpKSKs24C9bPzSqLxIA" },
+            "Cart-Context-Id" : contextId },
             //anväd query och variabel från createAcart
             body: RemoveCart,
         })
