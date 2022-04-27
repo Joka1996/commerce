@@ -2,8 +2,13 @@ import React, { FC } from 'react'
 import s from './Quantity.module.css'
 import { Cross, Plus, Minus } from '@components/icons'
 import cn from 'clsx'
+import AddToCart from '@framework/api/endpoints/AddToCart'
+import RemoveCart from '@framework/api/endpoints/RemoveCart'
+
 export interface QuantityProps {
   value: number
+  handleAdditem: React.MouseEventHandler<HTMLButtonElement>
+  // RemoveCart: () => any
   increase: () => any
   decrease: () => any
   handleRemove: React.MouseEventHandler<HTMLButtonElement>
@@ -17,8 +22,10 @@ const Quantity: FC<QuantityProps> = ({
   decrease,
   handleChange,
   handleRemove,
+  handleAdditem,
   max = 6,
 }) => {
+
   return (
     <div className="flex flex-row h-9">
       <button className={s.actions} onClick={handleRemove}>
@@ -39,7 +46,7 @@ const Quantity: FC<QuantityProps> = ({
       </label>
       <button
         type="button"
-        onClick={decrease}
+        onClick={handleRemove}
         className={s.actions}
         style={{ marginLeft: '-1px' }}
         disabled={value <= 1}
@@ -48,10 +55,10 @@ const Quantity: FC<QuantityProps> = ({
       </button>
       <button
         type="button"
-        onClick={increase}
+        onClick={handleAdditem}
         className={cn(s.actions)}
         style={{ marginLeft: '-1px' }}
-        disabled={value < 1 || value >= max}
+        disabled={value <= 0  || value >= max}
       >
         <Plus width={18} height={18} />
       </button>

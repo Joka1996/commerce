@@ -11,20 +11,7 @@ import useRemoveItem from '@framework/cart/use-remove-item'
 import Quantity from '@components/ui/Quantity'
 import GetCart from '@framework/api/endpoints/GetCart'
 import RemoveCart from '@framework/api/endpoints/RemoveCart'
-
-// //hämta cookies och data
-// async function getData(){
-//   const cookieObj = new URLSearchParams(document.cookie.replaceAll("; ","&"))
-//   let contextId = String(cookieObj.get("cartContext"));
-//   return await GetCart(contextId)
-// }
-// let data = await getData()
-
-// console.log(data.data.cart);
-
-// let context ="CfDJ8C5VxuvQNgNMvfFSYAHiHJsJwJJuMO-3sBuns7e_zF5nUjLzA1AAIX9EeQc_JFmluMQHJ-wVtLUrflu9kRF7sqfEcenJqBHQokbNBLvKQfsJSn2X4abqvobIQiz9QFGykXfgvpKSKs24C9bPzSqLxIA"
-// let data = await GetCart(context)
-// console.log(data.data.cart.items);
+import AddToCart from '@framework/api/endpoints/AddToCart'
 
 
 type ItemOption = {
@@ -50,20 +37,24 @@ const placeholderImg = '/product-img-placeholder.svg'
 const CartItem = ({
   //I item ligger nu mina props också
   item,
+  // product,
   variant = 'default',
   // currencyCode,
   ...rest
 }: {
   variant?: 'default' | 'display'
+  //Lagt till så den följer mina types
   item: items
+  // product: any
   // currencyCode: string
 }) => {
   const { closeSidebarIfPresent } = useUI()
   const [removing, setRemoving] = useState(false)
   const [quantity, setQuantity] = useState<number>(item.quantity)
-  const removeItem = useRemoveItem()
+  // const removeItem = useRemoveItem() //Orginal ta bort-funktion
   const updateItem = useUpdateItem({ item })
- 
+
+
   //ändrat denna till total och unitprice
   const { price } = usePrice({
     amount: item.totalPrice * item.quantity,
@@ -83,18 +74,30 @@ const CartItem = ({
     await updateItem({ quantity: val })
   }
 
+  //Egen. Denna ksickar samma artikelnummer som redan är tillagt, det som vill skickas är productID
+  const handleAdditem = async () => {
+    try{
+      const cookieObj = new URLSearchParams(document.cookie.replaceAll("; ","&"))
+      let contextId = String(cookieObj.get("cartContext"));
+      let articleNumber = item.articleNumber;
+      console.log(articleNumber);
+      await AddToCart(articleNumber, contextId );
+    } catch(error) {
+      console.log(error);
+    }
+  }
+  //Gjort om
   const handleRemove = async () => {
     setRemoving(true)
     try {
-      //Här ska ju egentligen cookies hämtas
+      //Hämta cookie
         const cookieObj = new URLSearchParams(document.cookie.replaceAll("; ","&"))
           let contextId = String(cookieObj.get("cartContext"));
           let productId = item.id;
           console.log(productId);
           // console.log(contextId);
-      // let contextId = "CfDJ8C5VxuvQNgNMvfFSYAHiHJt6MQBCG9qaqwxEUvYOatYk9HzJ-LzgO6DJD1WT-aJcIPfQLNphbMqu2sd0w63-HyD5B7aI9deOxKa-_7VuXBITjyl1JJw63SXJ4UiznYXox11vEhFzfLr0d4mnLLtkxss"
-      // await removeItem(item)
-      await RemoveCart(contextId, productId);
+          await RemoveCart(contextId, productId);
+    // await removeItem(item) //orginal
     } catch (error) {
       setRemoving(false)
     }
@@ -133,7 +136,6 @@ const CartItem = ({
                 // item.variant.image?.url || 
                 alt={"Product Image"}
                 unoptimized
-
               />
             </a>
           {/* </Link> */}
@@ -186,11 +188,13 @@ const CartItem = ({
       </div>
       {/* {variant === 'default' && ( */}
         <Quantity
-          value={quantity}
+          value={item.quantity}
           handleRemove={handleRemove}
           handleChange={handleChange}
+          handleAdditem={handleAdditem}
           increase={() => increaseQuantity(1)}
           decrease={() => increaseQuantity(-1)}
+          
         />
       {/* )} */}
     </li>

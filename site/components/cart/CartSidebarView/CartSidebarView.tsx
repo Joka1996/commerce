@@ -10,33 +10,34 @@ import useCart from '@framework/cart/use-cart'
 import usePrice from '@framework/product/use-price'
 import SidebarLayout from '@components/common/SidebarLayout'
 import GetCart from '@framework/api/endpoints/GetCart'
+import { Product } from '@commerce/types/product'
 
-//Detta fungerar ej
-//hämta cookies och data
-//  function getCookie(){
-//   const cookieObj = new URLSearchParams(document.cookie.replaceAll("; ","&"))
-//   let contextId = String(cookieObj.get("cartContext"));
-//   console.log(contextId);
-//   return contextId;
-// }
+//Hämta cookies och skicka context till GetCart
+const getData = async () => {
+  try {
+    const cookieObj = new URLSearchParams(document.cookie.replaceAll("; ","&"))
+    let contextId = String(cookieObj.get("cartContext"));
+    return await GetCart(contextId)
 
-// async function getData() {
-//   let id = getCookie();
+  } catch(error) {
+    console.log(error);
+  }
+}
+let cartData = await getData();
 
-//   let data = await GetCart(id);
-//   return data
-// }
-// let cartData = await getData()
+//testa att skicka produkt-datan hit
+interface CartSidebarViewProps {
+  product?: Product
+}
+
+const CartSidebarView: FC<CartSidebarViewProps> = ({ product}) => {
+console.log(product);
 
 
-let context ="CfDJ8C5VxuvQNgNMvfFSYAHiHJt6MQBCG9qaqwxEUvYOatYk9HzJ-LzgO6DJD1WT-aJcIPfQLNphbMqu2sd0w63-HyD5B7aI9deOxKa-_7VuXBITjyl1JJw63SXJ4UiznYXox11vEhFzfLr0d4mnLLtkxss"
-let cartData = await GetCart(context)
-// console.log(cartData.data.cart);
-
-const CartSidebarView: FC = () => {
   // console.log(cartData.data.cart.items);
-  const data  = cartData.data.cart;
-  console.log(data);
+  //Egen data 
+  const data = cartData.data.cart;
+
   //sätt dessa till false så att kassan visas
   let isLoading = false;
   let isEmpty = false;
@@ -45,7 +46,7 @@ const CartSidebarView: FC = () => {
   const { closeSidebar, setSidebarView } = useUI()
 
   //byta ut useCart data till egna getCart  
-  // const {data, isLoading, isEmpty} = useCart()
+  // const {data, isLoading, isEmpty} = useCart() // orginal-lösning
 
   const { price: subTotal } = usePrice(
     data && {
@@ -75,7 +76,9 @@ const CartSidebarView: FC = () => {
       })}
       handleClose={handleClose}
     >
-      {isLoading || isEmpty ? (
+       {/* isLoading || isEmpty */}
+       {/* Om det inte finns något i data, visa då cart is empty */}
+      { data.items.length <= 0  ? (
         <div className="flex-1 px-4 flex flex-col justify-center items-center">
           <span className="border border-dashed border-primary rounded-full flex items-center justify-center w-16 h-16 p-12 bg-secondary text-secondary">
             <Bag className="absolute" />
@@ -122,6 +125,7 @@ const CartSidebarView: FC = () => {
                 <CartItem
                   key={item.id}
                   item={item}
+                  //Här skulle jag vilja skicka med alla data, då kan jag plocka upp bilder, id osv.
                   // currencyCode={data!.formattedTotalPrice}
                 />
               ))}
@@ -150,15 +154,15 @@ const CartSidebarView: FC = () => {
               <span>{data.totalPrice} SEK</span>
             </div>
             <div>
-              {process.env.COMMERCE_CUSTOMCHECKOUT_ENABLED ? (
+              {/* {process.env.COMMERCE_CUSTOMCHECKOUT_ENABLED ? (
                 <Button Component="a" width="100%" onClick={goToCheckout}>
                   Proceed to Checkout ({data.totalPrice})
                 </Button>
-              ) : (
+              ) : ( */}
                 <Button href="/checkout" Component="a" width="100%">
                   Proceed to Checkout
                 </Button>
-              )}
+              {/* )} */}
             </div>
           </div>
         </>

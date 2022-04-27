@@ -8,10 +8,7 @@ import CreateCart from '@framework/api/endpoints/CreateCart'
 import AddToCart from '@framework/api/endpoints/AddToCart'
 import GetCart from '@framework/api/endpoints/GetCart'
 import RemoveCart from '@framework/api/endpoints/RemoveCart'
-
-
-//import GetSingleProduct from '@framework/api/endpoints/fetchSingleProduct'
-
+import { CartSidebarView } from '@components/cart'
 
 import {
   getProductVariant,
@@ -20,27 +17,27 @@ import {
   SelectedOptions,
 } from '../helpers'
 
-
-
 interface ProductSidebarProps {
   product: Product
   data: any
   className?: string
 }
-  
+
 const ProductSidebar: FC<ProductSidebarProps> = ({ product,data, className }) => {
-  // const addItem = useAddItem()
+  // const addItem = useAddItem() //OG
   const { openSidebar } = useUI()
   const [loading, setLoading] = useState(false)
   const [selectedOptions, setSelectedOptions] = useState<SelectedOptions>({})
 
-  
 //kommenterat ut själv
   // useEffect(() => {
   //   selectDefaultOptionFromProduct(product, setSelectedOptions)
   // }, [product])
 
   // const variant = getProductVariant(product, selectedOptions)
+  
+
+
   const addToCart = async () => {
     setLoading(true)
     try {
@@ -80,7 +77,7 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product,data, className }) =>
         } else {
           let context = await CreateCart();
           let stringContext = String(context);
-          //spara den nya som cookie, den kommer att lagras i 24h
+          //spara den nya som cookie, som kommer att lagras i 24h
           setCookie("cartContext", stringContext, 1)
           let productId = String(product.id);
           await AddToCart(productId, cartContext);
@@ -88,7 +85,12 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product,data, className }) =>
           await GetCart(cartContext);
         }
       }
-
+      //kolla efter cookie
+      await checkCookie()
+   
+      openSidebar()
+      setLoading(false)
+      // location.reload(); 
 
       //OG i denna try
       // await addItem({
@@ -96,21 +98,12 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product,data, className }) =>
       //   //kommenterat ut själv
       //   // variantId: String(variant ? variant.id : product.variants[0]?.id),
       // })
-      //kolla efter cookie
-      await checkCookie()
-      setLoading(false)
-      // location.reload(); 
-      openSidebar()
     } catch (err) {
       console.log(err);
       setLoading(false)
     }
   }
-  //tester av funktioner
-  // console.log('*************');
-  // console.log(CreateCart());
-  // console.log(AddToCart());
-  // console.log(RemoveCart());  
+  console.log(product.id);
 
   return (
     <div className={className}>
@@ -124,10 +117,6 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product,data, className }) =>
         selectedOptions={selectedOptions}
         setSelectedOptions={setSelectedOptions}
       />
-       {/* testning av filterItems */}
-       {/* {console.log('*************')}
-      {console.log(data.data.content)} */}
-
       <h2><b>{product.name}</b></h2>
       <Text
         className="pb-4 break-words w-full max-w-xl"
@@ -158,7 +147,6 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product,data, className }) =>
         </Collapse> */}
         <Collapse title="Details">
           {/* Lagt till själv */}
-          Här ska nog lite CSS in.
             <ul >
                   <li key={product.brand}> <b>Brand:</b> {product.brand}</li>
                   <li key={product.color}><b>Color:</b> {product.color}</li>

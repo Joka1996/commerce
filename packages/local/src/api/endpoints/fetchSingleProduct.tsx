@@ -2,9 +2,6 @@
 import React, {Fragment, useState, useEffect} from "react";
 import https from "https";
 import fetch from "node-fetch";
-import { useRouter } from 'next/router'
-import { stringify } from "querystring";
-import { redirect } from "next/dist/server/api-utils";
 
 
 //Fetch single product

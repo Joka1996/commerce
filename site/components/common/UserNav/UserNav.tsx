@@ -13,15 +13,38 @@ import {
   DropdownTrigger as DropdownTriggerInst,
   Button,
 } from '@components/ui'
+import GetCart from '@framework/api/endpoints/GetCart'
 
-import type { LineItem } from '@commerce/types/cart'
+//ingen tur än med detta
+// const getData = async () => {
+//   try {
+//     const cookieObj = new URLSearchParams(document.cookie.replaceAll("; ","&"))
+//     let contextId = String(cookieObj.get("cartContext"));
+//     return await GetCart(contextId)
 
-const countItem = (count: number, item: LineItem) => count + item.quantity
+//   } catch(error) {
+//     console.log(error);
+//   }
+// }
+// let cartData = await getData();
+// console.log('*************');
+
+
+//Lagt till items
+import type { LineItem, items } from '@commerce/types/cart'
+//ändrat från items:LineItems till nuvarnade
+const countItem = (count: number, items: items) => count + items.quantity
+
 
 const UserNav: React.FC<{
   className?: string
 }> = ({ className }) => {
+  //samma här med at byta ut data
   const { data } = useCart()
+  // const data = cartData.data.cart;
+
+  // console.log(data);
+
   const { data: isCustomerLoggedIn } = useCustomer()
   const {
     toggleSidebar,
@@ -31,11 +54,12 @@ const UserNav: React.FC<{
     openSidebar,
   } = useUI()
 
-  const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0
+  const itemsCount = data?.items.reduce(countItem, 0) ?? 0
+
   const DropdownTrigger = isCustomerLoggedIn
     ? DropdownTriggerInst
     : React.Fragment
-  
+
   return (
     <nav className={cn(s.root, className)}>
       <ul className={s.list}>
@@ -57,7 +81,7 @@ const UserNav: React.FC<{
             </Button>
           </li>
         {/* )} */}
-        {/* {process.env.COMMERCE_WISHLIST_ENABLED && ( */}
+        {process.env.COMMERCE_WISHLIST_ENABLED && (
           <li className={s.item}>
             <Link href="/wishlist">
               <a onClick={closeSidebarIfPresent} aria-label="Wishlist">
@@ -65,8 +89,8 @@ const UserNav: React.FC<{
               </a>
             </Link>
           </li>
-        {/* )} */}
-        {/* {process.env.COMMERCE_CUSTOMERAUTH_ENABLED && ( */}
+      )} 
+      {process.env.COMMERCE_CUSTOMERAUTH_ENABLED && ( 
           <li className={s.item}>
             <Dropdown>
               <DropdownTrigger>
@@ -81,7 +105,7 @@ const UserNav: React.FC<{
               <CustomerMenuContent />
             </Dropdown>
           </li>
-        {/* )} */}
+        )} 
         <li className={s.mobileMenu}>
           <Button
             className={s.item}

@@ -20,6 +20,7 @@ export type items = {
   unitPrice: number
   vatAmount: number
   vatRate: number
+  length: number
 }
 
 //lagt till ?

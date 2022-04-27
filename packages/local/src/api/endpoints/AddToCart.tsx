@@ -9,7 +9,7 @@ export default async function AddToCart(articleNumber:string, contextId:string )
     //cartContext? : string, articleNumber?: string
     // cartContext = "" 
     // articleNumber ="4b3aab05-ff67-49c7-a3f6-5ed56d0a153e"
-
+    console.log(articleNumber);
 
     let addCart = JSON.stringify({
         query: "mutation AddItemToCart($item: AddItemToCartType!) {\r\n cartAddItem (item: $item) {\r\n      result {\r\n      message\r\n      success\r\n    }\r\n      data {\r\n        ... cart\r\n      }\r\n    }\r\n}\r\n\r\nfragment price on PriceInterfaceType {\r\n  formattedTotalPrice\r\n  totalPrice\r\n  vatAmount\r\n  vatRate\r\n}\r\n\r\nfragment cart on CartType {\r\n    ...price\r\n    items {\r\n      id\r\n      articleNumber\r\n      quantity\r\n      formattedUnitPrice\r\n      unitPrice\r\n      ...price\r\n    }\r\n}",
