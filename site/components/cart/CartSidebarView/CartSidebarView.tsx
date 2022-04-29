@@ -36,7 +36,7 @@ console.log(product);
 
   // console.log(cartData.data.cart.items);
   //Egen data 
-  const data = cartData.data.cart;
+  let data = cartData.data.cart;
 
   //sätt dessa till false så att kassan visas
   let isLoading = false;
@@ -78,7 +78,7 @@ console.log(product);
     >
        {/* isLoading || isEmpty */}
        {/* Om det inte finns något i data, visa då cart is empty */}
-      { data.items.length <= 0  ? (
+      { data === null  ? (
         <div className="flex-1 px-4 flex flex-col justify-center items-center">
           <span className="border border-dashed border-primary rounded-full flex items-center justify-center w-16 h-16 p-12 bg-secondary text-secondary">
             <Bag className="absolute" />
