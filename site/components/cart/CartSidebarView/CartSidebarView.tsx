@@ -31,8 +31,6 @@ interface CartSidebarViewProps {
 }
 
 const CartSidebarView: FC<CartSidebarViewProps> = ({ product}) => {
-console.log(product);
-
 
   // console.log(cartData.data.cart.items);
   //Egen data 

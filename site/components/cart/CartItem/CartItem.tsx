@@ -115,7 +115,9 @@ const CartItem = ({
     // do this differently as it could break easily
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [item.quantity])
-
+      //loader för bilder
+      const ImageLoader = ({ src }: { src: string }) =>
+      `https://localtest.me:5001${src}`;
   return (
     <li
       className={cn(s.root, {
@@ -125,20 +127,21 @@ const CartItem = ({
     >
       <div className="flex flex-row space-x-4 py-4">
         <div className="w-16 h-16 bg-violet relative overflow-hidden cursor-pointer z-0">
-          {/* <Link href={`/product/${item.path}`}> */}
+          {/* <Link href={`/product/${item.url}`}> */}
             <a>
               <Image
                 onClick={() => closeSidebarIfPresent()}
                 className={s.productImage}
                 width={150}
                 height={150}
-                src={placeholderImg}
-                // item.variant.image?.url || 
+                // loader={ImageLoader} //  fungerar inte?
+                src={"https://exjobb.localtest.me:5001"+item.image ||placeholderImg}
+                objectFit='cover'
                 alt={"Product Image"}
                 unoptimized
               />
             </a>
-          {/* </Link> */}
+           {/* </Link>  */}
         </div>
         <div className="flex-1 flex flex-col text-base">
           {/* <Link href={`/product/${item.path}`}> */}
@@ -152,7 +155,7 @@ const CartItem = ({
               </span>
             </a>
           {/* </Link> */}
-          {/* {options && options.length > 0 && (
+          {options && options.length > 0 && (
             <div className="flex items-center pb-1">
               {options.map((option: ItemOption, i: number) => (
                 <div
@@ -160,7 +163,7 @@ const CartItem = ({
                   className="text-sm font-semibold text-accent-7 inline-flex items-center justify-center"
                 >
                 {/* Ändrat  från name till description */}
-                  {/* {option.description}
+                  {option.description}
                   {option.name === 'Color' ? (
                     <span
                       className="mx-2 rounded-full bg-transparent border w-5 h-5 p-1 text-accent-9 inline-flex items-center justify-center overflow-hidden"
@@ -176,15 +179,16 @@ const CartItem = ({
                   {i === options.length - 1 ? '' : <span className="mr-3" />}
                 </div>
               ))}
-            </div> */}
-          {/* )}  */}
-          {/* {variant === 'display' && (
+            </div> 
+          )} 
+         {variant === 'display' && (
             <div className="text-sm tracking-wider">{quantity}x</div>
-          )} */}
+          )} 
         </div>
-        <div className="flex flex-col justify-between space-y-2 text-sm">
+        </div>
+        {/*  <div className="flex flex-col justify-between space-y-2 text-sm">
           <span>{price} {item.unitPrice} SEK</span>
-        </div>
+     
       </div>
       {/* {variant === 'default' && ( */}
         <Quantity

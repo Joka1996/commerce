@@ -21,6 +21,9 @@ export type items = {
   vatAmount: number
   vatRate: number
   length: number
+  image: string
+  size:string
+  color:string
 }
 
 //lagt till ?
