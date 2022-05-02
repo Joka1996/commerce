@@ -74,7 +74,7 @@ const CartItem = ({
     await updateItem({ quantity: val })
   }
 
-  //Egen. Denna ksickar samma artikelnummer som redan är tillagt, det som vill skickas är productID
+  //Egen. Denna skickar samma artikelnummer som redan är tillagt, det som vill skickas är productID
   const handleAdditem = async () => {
     try{
       const cookieObj = new URLSearchParams(document.cookie.replaceAll("; ","&"))
@@ -115,9 +115,11 @@ const CartItem = ({
     // do this differently as it could break easily
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [item.quantity])
+
       //loader för bilder
       const ImageLoader = ({ src }: { src: string }) =>
       `https://localtest.me:5001${src}`;
+
   return (
     <li
       className={cn(s.root, {
@@ -155,6 +157,26 @@ const CartItem = ({
               </span>
             </a>
           {/* </Link> */}
+          <div className="flex items-center pb-1">
+          <div
+            key={`${item.id}`}
+            className="text-sm font-semibold text-accent-7 inline-flex items-center justify-center">
+             Color:
+            <span
+              className="mx-2 rounded-full bg-transparent border w-5 h-5 p-1 text-accent-9 inline-flex items-center justify-center overflow-hidden"
+            style={{backgroundColor: `${item.color}`,}} >
+          </span>
+            </div>
+            <div
+            key={`${item.id}`}
+            className="text-sm font-semibold text-accent-7 inline-flex items-center justify-center">
+               Size: 
+              <span className="mx-2 rounded-full bg-transparent border h-5 p-1 text-accent-9 inline-flex items-center justify-center overflow-hidden">
+               {item.size}
+              </span>
+            </div>
+          </div> 
+          {/* TA BORT DETTA  */}
           {options && options.length > 0 && (
             <div className="flex items-center pb-1">
               {options.map((option: ItemOption, i: number) => (
@@ -186,10 +208,9 @@ const CartItem = ({
           )} 
         </div>
         </div>
-        {/*  <div className="flex flex-col justify-between space-y-2 text-sm">
-          <span>{price} {item.unitPrice} SEK</span>
-     
-      </div>
+        <div className="flex flex-col justify-between space-y-2 text-sm">
+          <span> {item.unitPrice} SEK</span>
+        </div>
       {/* {variant === 'default' && ( */}
         <Quantity
           value={item.quantity}
