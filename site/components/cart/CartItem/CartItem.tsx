@@ -14,22 +14,22 @@ import RemoveCart from '@framework/api/endpoints/RemoveCart'
 import AddToCart from '@framework/api/endpoints/AddToCart'
 
 
-type ItemOption = {
-  name: string
-  nameId: number
-  value: string
-  valueId: number
-  //Lagt till detta under, den har av någon anledning props här o inte i type filen
-  articleNumber: string
-  description: string
-  formattedTotalPrice: string
-  formattedUnitPrice: string
-  id: string
-  quantity: number
-  totalPrice: number
-  unitPrice: number
-  vatAmount: number
-  vatRate: number
+// type ItemOption = {
+//   name: string
+//   nameId: number
+//   value: string
+//   valueId: number
+// }
+
+//test att uppdatera cart
+const updateGetCart = async()=> {
+  try {
+    const cookieObj = new URLSearchParams(document.cookie.replaceAll("; ","&"))
+    let contextId = String(cookieObj.get("cartContext"));
+    return await GetCart(contextId)
+  }catch(error) {
+    console.log(error);
+  }
 }
 
 const placeholderImg = '/product-img-placeholder.svg'
@@ -53,6 +53,7 @@ const CartItem = ({
   const [quantity, setQuantity] = useState<number>(item.quantity)
   // const removeItem = useRemoveItem() //Orginal ta bort-funktion
   const updateItem = useUpdateItem({ item })
+  const { openSidebar } = useUI()
 
 
   //ändrat denna till total och unitprice
@@ -82,6 +83,7 @@ const CartItem = ({
       let articleNumber = item.articleNumber;
       console.log(articleNumber);
       await AddToCart(articleNumber, contextId );
+      window.setTimeout(function(){location.reload()},2000)      
     } catch(error) {
       console.log(error);
     }
@@ -116,10 +118,6 @@ const CartItem = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [item.quantity])
 
-      //loader för bilder
-      const ImageLoader = ({ src }: { src: string }) =>
-      `https://localtest.me:5001${src}`;
-
   return (
     <li
       className={cn(s.root, {
@@ -127,6 +125,7 @@ const CartItem = ({
       })}
       {...rest}
     >
+
       <div className="flex flex-row space-x-4 py-4">
         <div className="w-16 h-16 bg-violet relative overflow-hidden cursor-pointer z-0">
           {/* <Link href={`/product/${item.url}`}> */}
@@ -136,15 +135,15 @@ const CartItem = ({
                 className={s.productImage}
                 width={150}
                 height={150}
-                // loader={ImageLoader} //  fungerar inte?
                 src={"https://exjobb.localtest.me:5001"+item.image ||placeholderImg}
                 objectFit='cover'
-                alt={"Product Image"}
+                alt={item.description}
                 unoptimized
               />
             </a>
            {/* </Link>  */}
         </div>
+
         <div className="flex-1 flex flex-col text-base">
           {/* <Link href={`/product/${item.path}`}> */}
             <a>
@@ -157,16 +156,23 @@ const CartItem = ({
               </span>
             </a>
           {/* </Link> */}
+          <div className="flex flex-col justify-between space-y-2 text-sm">
+          <span> {item.unitPrice * quantity} SEK</span>
+        </div>
+        {/* If color or size exist show it, else null */}
           <div className="flex items-center pb-1">
-          <div
+          {item.color != null ? (
+            <div
             key={`${item.id}`}
             className="text-sm font-semibold text-accent-7 inline-flex items-center justify-center">
-             Color:
+              Color:
             <span
               className="mx-2 rounded-full bg-transparent border w-5 h-5 p-1 text-accent-9 inline-flex items-center justify-center overflow-hidden"
             style={{backgroundColor: `${item.color}`,}} >
           </span>
             </div>
+            ): null}
+            {item.size != null ? (
             <div
             key={`${item.id}`}
             className="text-sm font-semibold text-accent-7 inline-flex items-center justify-center">
@@ -175,53 +181,18 @@ const CartItem = ({
                {item.size}
               </span>
             </div>
+            ):null}
           </div> 
-          {/* TA BORT DETTA  */}
-          {options && options.length > 0 && (
-            <div className="flex items-center pb-1">
-              {options.map((option: ItemOption, i: number) => (
-                <div
-                  key={`${item.id}-${option.name}`}
-                  className="text-sm font-semibold text-accent-7 inline-flex items-center justify-center"
-                >
-                {/* Ändrat  från name till description */}
-                  {option.description}
-                  {option.name === 'Color' ? (
-                    <span
-                      className="mx-2 rounded-full bg-transparent border w-5 h-5 p-1 text-accent-9 inline-flex items-center justify-center overflow-hidden"
-                      style={{
-                        backgroundColor: `${option.value}`,
-                      }}
-                    ></span>
-                  ) : (
-                    <span className="mx-2 rounded-full bg-transparent border h-5 p-1 text-accent-9 inline-flex items-center justify-center overflow-hidden">
-                      {option.value}
-                    </span>
-                  )}
-                  {i === options.length - 1 ? '' : <span className="mr-3" />}
-                </div>
-              ))}
-            </div> 
-          )} 
-         {variant === 'display' && (
-            <div className="text-sm tracking-wider">{quantity}x</div>
-          )} 
         </div>
         </div>
-        <div className="flex flex-col justify-between space-y-2 text-sm">
-          <span> {item.unitPrice} SEK</span>
-        </div>
-      {/* {variant === 'default' && ( */}
         <Quantity
-          value={item.quantity}
+          value={quantity}
           handleRemove={handleRemove}
           handleChange={handleChange}
           handleAdditem={handleAdditem}
           increase={() => increaseQuantity(1)}
           decrease={() => increaseQuantity(-1)}
-          
         />
-      {/* )} */}
     </li>
   )
 }

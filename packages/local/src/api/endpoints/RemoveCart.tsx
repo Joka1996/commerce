@@ -26,6 +26,7 @@ export default async function RemoveCart(contextId: string, productId: string) {
         })
         try {
             const data = await response.json()
+            location.reload()
             console.log(data);
             //borde inte behöva returnera någon data?
             // return data 

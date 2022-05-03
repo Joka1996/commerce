@@ -18,32 +18,24 @@ const getData = async () => {
     const cookieObj = new URLSearchParams(document.cookie.replaceAll("; ","&"))
     let contextId = String(cookieObj.get("cartContext"));
     return await GetCart(contextId)
-
   } catch(error) {
     console.log(error);
   }
 }
 let cartData = await getData();
 
-//testa att skicka produkt-datan hit
-interface CartSidebarViewProps {
-  product?: Product
-}
 
-const CartSidebarView: FC<CartSidebarViewProps> = ({ product}) => {
+const CartSidebarView: FC = () => {
 
   // console.log(cartData.data.cart.items);
   //Egen data 
   let data = cartData.data.cart;
-
+  
   //sätt dessa till false så att kassan visas
   let isLoading = false;
   let isEmpty = false;
-  // console.log(data);
 
   const { closeSidebar, setSidebarView } = useUI()
-
-  //byta ut useCart data till egna getCart  
   // const {data, isLoading, isEmpty} = useCart() // orginal-lösning
 
   const { price: subTotal } = usePrice(
@@ -75,8 +67,8 @@ const CartSidebarView: FC<CartSidebarViewProps> = ({ product}) => {
       handleClose={handleClose}
     >
        {/* isLoading || isEmpty */}
-       {/* Om det inte finns något i data, visa då cart is empty */}
-      { data === null  ? (
+       {/* Om det inte finns något i data.items, visa då cart is empty */}
+      { data.items.length <= 0 || data === null  ? (
         <div className="flex-1 px-4 flex flex-col justify-center items-center">
           <span className="border border-dashed border-primary rounded-full flex items-center justify-center w-16 h-16 p-12 bg-secondary text-secondary">
             <Bag className="absolute" />
@@ -123,7 +115,6 @@ const CartSidebarView: FC<CartSidebarViewProps> = ({ product}) => {
                 <CartItem
                   key={item.id}
                   item={item}
-                  //Här skulle jag vilja skicka med alla data, då kan jag plocka upp bilder, id osv.
                   // currencyCode={data!.formattedTotalPrice}
                 />
               ))}
@@ -147,8 +138,6 @@ const CartSidebarView: FC<CartSidebarViewProps> = ({ product}) => {
             </ul>
             <div className="flex justify-between border-t border-accent-2 py-3 font-bold mb-2">
               <span>Total</span>
-              {/* Denna behövs inte då den räknar själv */}
-              {/* <span>{total}</span> */}
               <span>{data.totalPrice} SEK</span>
             </div>
             <div>

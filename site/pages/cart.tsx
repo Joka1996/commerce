@@ -90,7 +90,7 @@ export default function Cart() {
                 <CartItem
                   key={item.id}
                   item={item}
-                  currencyCode={data?.currency.code!}
+                  // currencyCode={data?.currency.code!}
                 />
               ))}
             </ul>

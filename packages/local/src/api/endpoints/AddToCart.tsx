@@ -2,7 +2,7 @@
 import React, {Fragment, useState, useEffect} from "react";
 import https from "https";
 import fetch from "node-fetch";
-
+import GetCart from "./GetCart";
 
 //Lägg i kassan
 export default async function AddToCart(articleNumber:string, contextId:string ) { 

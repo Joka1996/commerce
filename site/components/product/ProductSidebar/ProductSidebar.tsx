@@ -27,6 +27,9 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product,data, className }) =>
   // const addItem = useAddItem() //OG
   const { openSidebar } = useUI()
   const [loading, setLoading] = useState(false)
+  //message for product beeing added to the cart
+  const [message, setMessage] = useState(false)
+
   const [selectedOptions, setSelectedOptions] = useState<SelectedOptions>({})
 
 //kommenterat ut själv
@@ -36,7 +39,6 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product,data, className }) =>
 
   // const variant = getProductVariant(product, selectedOptions)
   
-
 
   const addToCart = async () => {
     setLoading(true)
@@ -83,15 +85,19 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product,data, className }) =>
           await AddToCart(productId, cartContext);
           //skicka även contextID till getCart
           await GetCart(cartContext);
+
         }
       }
+      setMessage(true)
+
       //kolla efter cookie
       await checkCookie()
-   
-      openSidebar()
       setLoading(false)
-      // location.reload(); 
+      //poor mans solution
+      window.setTimeout(function(){location.reload()},2000)
+      // window.onload=openSidebar();      
 
+      
       //OG i denna try
       // await addItem({
       //   productId: String(product.id),
@@ -102,8 +108,8 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product,data, className }) =>
       console.log(err);
       setLoading(false)
     }
+    
   }
-  console.log(product.id);
 
   return (
     <div className={className}>
@@ -133,10 +139,13 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product,data, className }) =>
             className={s.button}
             onClick={addToCart}
             loading={loading}
-            // disabled={variant?.availableForSale === false}
+            disabled={product.isInStock === false}
           >
             {/**Ändrat till egen type från litium. */}
-            {product.isInStock === false
+            {message === true ? (
+              "Product added to the cart!"
+            ):
+            product.isInStock === false
               ? 'Not Available'
               : 'Add To Cart'}
            </Button> 

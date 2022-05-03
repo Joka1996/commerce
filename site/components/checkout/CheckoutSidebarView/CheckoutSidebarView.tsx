@@ -11,11 +11,27 @@ import ShippingWidget from '../ShippingWidget'
 import PaymentWidget from '../PaymentWidget'
 import s from './CheckoutSidebarView.module.css'
 import { useCheckoutContext } from '../context'
+import GetCart from '@framework/api/endpoints/GetCart'
+
+//ingen tur än med detta
+const getData = async () => {
+  try {
+    const cookieObj = new URLSearchParams(document.cookie.replaceAll("; ","&"))
+    let contextId = String(cookieObj.get("cartContext"));
+    return await GetCart(contextId)
+
+  } catch(error) {
+    console.log(error);
+  }
+}
+let getdata = await getData();
+
 
 const CheckoutSidebarView: FC = () => {
   const [loadingSubmit, setLoadingSubmit] = useState(false)
   const { setSidebarView, closeSidebar } = useUI()
-  const { data: cartData, mutate: refreshCart } = useCart()
+  //changed from getCart() to getData
+  const { data: cartData, mutate: refreshCart } = getdata
   const { data: checkoutData, submit: onCheckout } = useCheckout()
   const { clearCheckoutFields } = useCheckoutContext()
 
@@ -74,7 +90,7 @@ const CheckoutSidebarView: FC = () => {
             <CartItem
               key={item.id}
               item={item}
-              currencyCode={cartData!.currency.code}
+              // currencyCode={cartData!.currency.code}
               variant="display"
             />
           ))}

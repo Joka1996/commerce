@@ -7,42 +7,42 @@ import { useUI } from '@components/ui/context'
 import { Heart, Bag, Menu } from '@components/icons'
 import CustomerMenuContent from './CustomerMenuContent'
 import useCustomer from '@framework/customer/use-customer'
-import React from 'react'
+import React, { useEffect, useState} from 'react'
 import {
   Dropdown,
   DropdownTrigger as DropdownTriggerInst,
   Button,
 } from '@components/ui'
+
 import GetCart from '@framework/api/endpoints/GetCart'
 
 //ingen tur än med detta
-// const getData = async () => {
-//   try {
-//     const cookieObj = new URLSearchParams(document.cookie.replaceAll("; ","&"))
-//     let contextId = String(cookieObj.get("cartContext"));
-//     return await GetCart(contextId)
+const getData = async () => {
+  try {
+    const cookieObj = new URLSearchParams(document.cookie.replaceAll("; ","&"))
+    let contextId = String(cookieObj.get("cartContext"));
+    return await GetCart(contextId)
 
-//   } catch(error) {
-//     console.log(error);
-//   }
-// }
-// let cartData = await getData();
-// console.log('*************');
+  } catch(error) {
+    console.log(error);
+  }
+}
+let cartData = await getData();
 
 
 //Lagt till items
-import type { LineItem, items } from '@commerce/types/cart'
-//ändrat från items:LineItems till nuvarnade
-const countItem = (count: number, items: items) => count + items.quantity
+import type {LineItem, items } from '@commerce/types/cart'
 
+//ändrat från items:LineItems till nuvarnade
+const countItem =  (count: number, item: items) => count + item.quantity
 
 const UserNav: React.FC<{
   className?: string
 }> = ({ className }) => {
   //samma här med at byta ut data
-  const { data } = useCart()
-  // const data = cartData.data.cart;
+  // const { data } = useCart()
 
+  const data = cartData;
   // console.log(data);
 
   const { data: isCustomerLoggedIn } = useCustomer()
@@ -54,8 +54,8 @@ const UserNav: React.FC<{
     openSidebar,
   } = useUI()
 
-  const itemsCount = data?.items.reduce(countItem, 0) ?? 0
-
+  const itemsCount = 5
+  // data?.items.reduce(countItem, 0) ?? 0
   const DropdownTrigger = isCustomerLoggedIn
     ? DropdownTriggerInst
     : React.Fragment
@@ -80,6 +80,11 @@ const UserNav: React.FC<{
               )}
             </Button>
           </li>
+
+
+
+
+
         {/* )} */}
         {process.env.COMMERCE_WISHLIST_ENABLED && (
           <li className={s.item}>
