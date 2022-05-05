@@ -68,7 +68,7 @@ const CartSidebarView: FC = () => {
     >
        {/* isLoading || isEmpty */}
        {/* Om det inte finns något i data.items, visa då cart is empty */}
-      { data.items.length <= 0 || data === null  ? (
+      {data === null || data.items.length <= 0 ? (
         <div className="flex-1 px-4 flex flex-col justify-center items-center">
           <span className="border border-dashed border-primary rounded-full flex items-center justify-center w-16 h-16 p-12 bg-secondary text-secondary">
             <Bag className="absolute" />

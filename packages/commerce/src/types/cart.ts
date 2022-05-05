@@ -24,6 +24,7 @@ export type items = {
   image: string
   size:string
   color:string
+  url: string
 }
 
 //lagt till ?

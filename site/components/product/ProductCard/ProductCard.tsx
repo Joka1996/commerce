@@ -41,8 +41,8 @@ const ProductCard: FC<Props> = ({
 
     //i denna fil har jag anpassat bilder, samt bytt till formattedPrice
     //loader 
-    const externaImageLoader = ({ src }: { src: string }) =>
-  `https://localtest.me:5001${src}`;
+    const externaImageLoader = ({ src, width }: { src: string, width:number }) =>
+  `https://localtest.me:5001${src}?w=${width}`;
   
 
   return (
@@ -98,13 +98,13 @@ const ProductCard: FC<Props> = ({
               {product?.images && (
                 <div>
                   <Image
+                    height={200}
+                    width={140}
                   //lagt till egen loader
                     loader={externaImageLoader}
                     alt={product.name || 'Product Image'}
                     className={s.productImage}
                     src={product.images[0]?.url || placeholderImg}
-                    height={200}
-                    width={140}
                     quality="85"
                     layout="responsive"
                     //lagt till objectfit
@@ -135,13 +135,12 @@ const ProductCard: FC<Props> = ({
                 <div>
                   {/* dessa är de stora bilderna */}
                   <Image
+                    height={1590} 
+                    width={1113}
                     loader={externaImageLoader}
                     alt={product.name || 'Product Image'}
                     className={s.productImage}
                     src={product.images[3]?.url || placeholderImg}
-                    //hjälper ej att ändra dessa
-                    height={1590}
-                    width={1113}
                     quality="85"
                     layout="responsive"
                      //lagt till contain så att bilden krymper något

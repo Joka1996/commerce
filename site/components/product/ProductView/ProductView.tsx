@@ -26,8 +26,8 @@ const ProductView: FC<ProductViewProps> = ({data, product, relatedProducts }) =>
   })
 
     //imageloader för bilder 
-    const externaImageLoader = ({ src }: { src: string }) =>
-  `https://localtest.me:5001${src}`;
+    const externaImageLoader = ({ src, width }: { src: string, width:number }) =>
+  `https://localtest.me:5001${src}?w=${width}`;
     // console.log(URL+product.images[0].url);
   return (
     <>

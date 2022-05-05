@@ -118,6 +118,10 @@ const CartItem = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [item.quantity])
 
+  //get product url and slice the path
+  let productUrl = item.url;
+  let slicedUrl = productUrl.slice(32)
+  
   return (
     <li
       className={cn(s.root, {
@@ -125,27 +129,27 @@ const CartItem = ({
       })}
       {...rest}
     >
-
+      
       <div className="flex flex-row space-x-4 py-4">
         <div className="w-16 h-16 bg-violet relative overflow-hidden cursor-pointer z-0">
-          {/* <Link href={`/product/${item.url}`}> */}
+          <Link href={`${slicedUrl}`}>
             <a>
               <Image
                 onClick={() => closeSidebarIfPresent()}
                 className={s.productImage}
                 width={150}
                 height={150}
-                src={"https://exjobb.localtest.me:5001"+item.image ||placeholderImg}
+                src={"https://exjobb.localtest.me:5001"+item.image || placeholderImg}
                 objectFit='cover'
                 alt={item.description}
                 unoptimized
               />
             </a>
-           {/* </Link>  */}
+           </Link> 
         </div>
 
         <div className="flex-1 flex flex-col text-base">
-          {/* <Link href={`/product/${item.path}`}> */}
+          <Link href={`${slicedUrl}`}>
             <a>
               <span
                 className={s.productName}
@@ -155,11 +159,11 @@ const CartItem = ({
                 {item.description}
               </span>
             </a>
-          {/* </Link> */}
+          </Link>
           <div className="flex flex-col justify-between space-y-2 text-sm">
           <span> {item.unitPrice * quantity} SEK</span>
         </div>
-        {/* If color or size exist show it, else null */}
+        {/*GJROT SJÄLV If color or size exist show it, else null */}
           <div className="flex items-center pb-1">
           {item.color != null ? (
             <div
