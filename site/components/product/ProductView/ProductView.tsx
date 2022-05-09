@@ -43,7 +43,7 @@ const ProductView: FC<ProductViewProps> = ({data, product, relatedProducts }) =>
             <div className={s.sliderContainer}> 
               <ProductSlider key={product.id}>
                 {product.images.map((image, i) => (
-                  <div key={image.url} className={s.imageContainer}>
+                  <div key={i} className={s.imageContainer}>
                     <Image
                       className={s.img}
                       //lagt till loader, inte ändrat src då den mappas här och heter samma
@@ -82,15 +82,15 @@ const ProductView: FC<ProductViewProps> = ({data, product, relatedProducts }) =>
         <section className="py-12 px-6 mb-10">
           <Text variant="sectionHeading">Related Products</Text>
           <div className={s.relatedProductsGrid}>
-            {relatedProducts.map((p) => (
+            {relatedProducts.map((p, i) => (
               <div
-                key={p.path}
+                key={i}
                 className="animated fadeIn bg-accent-0 border border-accent-2"
               >
                 <ProductCard
                   noNameTag
                   product={p}
-                  key={p.path}
+                  key={i}
                   variant="simple"
                   className="animated fadeIn"
                   imgProps={{

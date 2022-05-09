@@ -12,6 +12,7 @@ import Quantity from '@components/ui/Quantity'
 import GetCart from '@framework/api/endpoints/GetCart'
 import RemoveCart from '@framework/api/endpoints/RemoveCart'
 import AddToCart from '@framework/api/endpoints/AddToCart'
+import UpdateCart from '@framework/api/endpoints/UpdateCart'
 
 
 // type ItemOption = {
@@ -20,17 +21,6 @@ import AddToCart from '@framework/api/endpoints/AddToCart'
 //   value: string
 //   valueId: number
 // }
-
-//test att uppdatera cart
-const updateGetCart = async()=> {
-  try {
-    const cookieObj = new URLSearchParams(document.cookie.replaceAll("; ","&"))
-    let contextId = String(cookieObj.get("cartContext"));
-    return await GetCart(contextId)
-  }catch(error) {
-    console.log(error);
-  }
-}
 
 const placeholderImg = '/product-img-placeholder.svg'
 
@@ -68,11 +58,22 @@ const CartItem = ({
     setQuantity(Number(value))
     await updateItem({ quantity: Number(value) })
   }
-
+//changed
   const increaseQuantity = async (n = 1) => {
-    const val = Number(quantity) + n
-    setQuantity(val)
-    await updateItem({ quantity: val })
+    try {
+      const quantity = Number(item.quantity) + n
+      item.quantity = quantity
+      setQuantity(quantity)
+      
+      const cookieObj = new URLSearchParams(document.cookie.replaceAll("; ","&"))
+      let contextId = String(cookieObj.get("cartContext"));
+      let productId = item.id;
+      //send wanted quantatiy, productid and cart context id to function.
+      return await UpdateCart(quantity, productId, contextId)
+    }catch(error) {
+      console.log(error);
+    }
+    // await updateItem({ quantity: val })
   }
 
   //Egen. Denna skickar samma artikelnummer som redan är tillagt, det som vill skickas är productID
@@ -88,6 +89,7 @@ const CartItem = ({
       console.log(error);
     }
   }
+
   //Gjort om
   const handleRemove = async () => {
     setRemoving(true)
@@ -167,7 +169,6 @@ const CartItem = ({
           <div className="flex items-center pb-1">
           {item.color != null ? (
             <div
-            key={`${item.id}`}
             className="text-sm font-semibold text-accent-7 inline-flex items-center justify-center">
               Color:
             <span
@@ -178,7 +179,6 @@ const CartItem = ({
             ): null}
             {item.size != null ? (
             <div
-            key={`${item.id}`}
             className="text-sm font-semibold text-accent-7 inline-flex items-center justify-center">
                Size: 
               <span className="mx-2 rounded-full bg-transparent border h-5 p-1 text-accent-9 inline-flex items-center justify-center overflow-hidden">

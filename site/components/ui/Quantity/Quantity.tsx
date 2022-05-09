@@ -23,7 +23,7 @@ const Quantity: FC<QuantityProps> = ({
   handleChange,
   handleRemove,
   handleAdditem,
-  max = 6,
+  max = 99,
 }) => {
 
   return (
@@ -46,7 +46,7 @@ const Quantity: FC<QuantityProps> = ({
       </label>
       <button
         type="button"
-        onClick={handleRemove}
+        onClick={decrease}
         className={s.actions}
         style={{ marginLeft: '-1px' }}
         disabled={value <= 1}
@@ -55,7 +55,7 @@ const Quantity: FC<QuantityProps> = ({
       </button>
       <button
         type="button"
-        onClick={handleAdditem}
+        onClick={increase}
         className={cn(s.actions)}
         style={{ marginLeft: '-1px' }}
         disabled={value <= 0  || value >= max}
