@@ -15,11 +15,14 @@
   --red: #da3c3c;
   --purple: #f81ce5;
   --blue: #0070f3;
-  --pink: #ff0080;
+  /* pink: changed ff0080 to present*/
+  --pink: #0e3a5e;
   --pink-light: #ff379c;
   --magenta: #eb367f;
-  --violet: #7928ca;
-  --violet-dark: #4c2889;
+  /* violet changed 7928ca to present */
+  --violet: #f58220;
+  /* violet-dark changed 4c2889 to present */
+  --violet-dark: #e47a1c;
   --accent-0: #fff;
   --accent-1: #fafafa;
   --accent-2: #eaeaea;
@@ -33,6 +36,13 @@
   --font-sans: -apple-system, system-ui, BlinkMacSystemFont, 'Helvetica Neue',
     'Helvetica', sans-serif;
 }
+
+/* 
+main
+#f58220
+sec
+#0e3a5e
+ */
 
 [data-theme='dark'] {
   --primary: #000000;
