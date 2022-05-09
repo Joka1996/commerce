@@ -13,7 +13,7 @@ import s from './CheckoutSidebarView.module.css'
 import { useCheckoutContext } from '../context'
 import GetCart from '@framework/api/endpoints/GetCart'
 
-//ingen tur än med detta
+//ingen tur med detta än
 const getData = async () => {
   try {
     const cookieObj = new URLSearchParams(document.cookie.replaceAll("; ","&"))

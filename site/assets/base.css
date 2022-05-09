@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@100;400&display=swap');
 :root {
   --primary: #ffffff;
   --primary-2: #f1f3f5;
@@ -33,10 +34,12 @@
   --accent-7: #333333;
   --accent-8: #111111;
   --accent-9: #000;
-  --font-sans: -apple-system, system-ui, BlinkMacSystemFont, 'Helvetica Neue',
-    'Helvetica', sans-serif;
+  --font-sans:'Archivo', sans-serif;
 }
 
+/* OG font 
+-apple-system, system-ui, BlinkMacSystemFont, 'Helvetica Neue',
+    'Helvetica', sans-serif; */
 /* 
 main
 #f58220
