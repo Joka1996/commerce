@@ -53,7 +53,7 @@ const ProductView: FC<ProductViewProps> = ({data, product, relatedProducts }) =>
                       width={600}
                       height={600}
                       priority={i === 0}
-                      quality="85"
+                      quality="75"
                       //lagt till
                       objectFit='contain'
                     />

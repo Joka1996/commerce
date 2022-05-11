@@ -58,7 +58,7 @@ const ProductCard: FC<Props> = ({
             {product?.images && (
               <div>
                 <Image
-                  quality="85"
+                  quality="75"
                   //lagt till egen loader
                   loader={externaImageLoader}
                   src={product.images[0].url ||placeholderImg}
@@ -105,7 +105,7 @@ const ProductCard: FC<Props> = ({
                     alt={product.name || 'Product Image'}
                     className={s.productImage}
                     src={product.images[0]?.url || placeholderImg}
-                    quality="85"
+                    quality="75"
                     layout="responsive"
                     //lagt till objectfit
                     objectFit='contain'
@@ -141,7 +141,7 @@ const ProductCard: FC<Props> = ({
                     alt={product.name || 'Product Image'}
                     className={s.productImage}
                     src={product.images[3]?.url || placeholderImg}
-                    quality="85"
+                    quality="75"
                     layout="responsive"
                      //lagt till contain så att bilden krymper något
                     objectFit='contain'

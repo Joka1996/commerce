@@ -76,20 +76,6 @@ const CartItem = ({
     // await updateItem({ quantity: val })
   }
 
-  //Egen. Denna skickar samma artikelnummer som redan är tillagt, det som vill skickas är productID
-  const handleAdditem = async () => {
-    try{
-      const cookieObj = new URLSearchParams(document.cookie.replaceAll("; ","&"))
-      let contextId = String(cookieObj.get("cartContext"));
-      let articleNumber = item.articleNumber;
-      console.log(articleNumber);
-      await AddToCart(articleNumber, contextId );
-      window.setTimeout(function(){location.reload()},2000)      
-    } catch(error) {
-      console.log(error);
-    }
-  }
-
   //Gjort om
   const handleRemove = async () => {
     setRemoving(true)
@@ -193,7 +179,6 @@ const CartItem = ({
           value={quantity}
           handleRemove={handleRemove}
           handleChange={handleChange}
-          handleAdditem={handleAdditem}
           increase={() => increaseQuantity(1)}
           decrease={() => increaseQuantity(-1)}
         />

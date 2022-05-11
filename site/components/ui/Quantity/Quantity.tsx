@@ -7,7 +7,6 @@ import RemoveCart from '@framework/api/endpoints/RemoveCart'
 
 export interface QuantityProps {
   value: number
-  handleAdditem: React.MouseEventHandler<HTMLButtonElement>
   // RemoveCart: () => any
   increase: () => any
   decrease: () => any
@@ -22,7 +21,6 @@ const Quantity: FC<QuantityProps> = ({
   decrease,
   handleChange,
   handleRemove,
-  handleAdditem,
   max = 99,
 }) => {
 
