@@ -40,10 +40,10 @@ const ProductCard: FC<Props> = ({
   )
 
     //i denna fil har jag anpassat bilder, samt bytt till formattedPrice
-    //loader 
+    //loader
     const externaImageLoader = ({ src, width }: { src: string, width:number }) =>
   `https://localtest.me:5001${src}?w=${width}`;
-  
+
 
   return (
     //ändrat till url från slug
@@ -67,6 +67,8 @@ const ProductCard: FC<Props> = ({
                   height={300}
                   width={240}
                   layout="fixed"
+                  sizes="50vw"
+                  loading="lazy"
                   {...imgProps}
                 />
               </div>
@@ -109,6 +111,8 @@ const ProductCard: FC<Props> = ({
                     layout="responsive"
                     //lagt till objectfit
                     objectFit='contain'
+                    sizes="50vw"
+                    loading="lazy"
                     {...imgProps}
                   />
                 </div>
@@ -135,17 +139,19 @@ const ProductCard: FC<Props> = ({
                 <div>
                   {/* dessa är de stora bilderna */}
                   <Image
-                    height={1590} 
+                    height={1590}
                     width={1113}
                     loader={externaImageLoader}
                     alt={product.name || 'Product Image'}
                     className={s.productImage}
                     src={product.images[3]?.url || placeholderImg}
-                    quality="75"
+                    quality="100"
                     layout="responsive"
                      //lagt till contain så att bilden krymper något
                     objectFit='contain'
                     sizes="50vw"
+                    // loading="lazy"
+                    // priority={true}
                     {...imgProps}
                   />
                 </div>
