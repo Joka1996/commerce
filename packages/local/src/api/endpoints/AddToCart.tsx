@@ -36,7 +36,7 @@ export default async function AddToCart(articleNumber:string, contextId:string )
               console.log(error);
         }
 }
-//hej
+
 // POSTMAN:
 // var myHeaders = new Headers();
 // myHeaders.append("Cart-Context-Id", "CfDJ8C5VxuvQNgNMvfFSYAHiHJv7Mk9b-odhevBFTwI0xq0mjJvHypDZlvM-NECHSsHzifgcv9Ahs_ksI5oqOX2qLqD4ddaqQ2lrV3nzbEm4kw_dEZlauBetAMy5GuB2YDlLYVi-mozke7xuxOi2OH5QmcY");
