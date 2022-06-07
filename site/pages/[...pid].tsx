@@ -16,26 +16,18 @@ import type {
     locale,
     locales,
     preview,
-  }: GetStaticPropsContext<{ slug: string }>) {
+  }: GetStaticPropsContext<{ pid:string[] }>) {
 
+    //check if params is null
+    if(params == null)
+    return;
     //få ut url ur params
-    let url = Object.values(params);
-    let saveURL ="";
-    // console.log('****');
-    url.forEach(element=> {
-      saveURL = element.join("/");
-    })
-    // console.log(saveURL);
+    let saveURL = params.pid.join("/");
     const config = { locale, locales }
     const pagesPromise = commerce.getAllPages({ config, preview })
     const siteInfoPromise = commerce.getSiteInfo({ config, preview })
     const productPromise = GetSingleProduct(saveURL);
-    //the old
-    // commerce.getProduct({
-    //   variables: { slug: params!.slug },
-    //   config,
-    //   preview,
-    // })
+ 
 
     const allProductsPromise = commerce.getAllProducts({
       variables: { first: 4 },
@@ -55,7 +47,7 @@ import type {
 
 
     if (!data) {
-      throw new Error(`Product with slug '${params!.slug}' not found`)
+      throw new Error(`Product with slug '${params!.pid}' not found`)
     }
 
     return {
@@ -70,8 +62,10 @@ import type {
   }
   ////måste vara med, men oklart vad det har för betydelse
   export async function getStaticPaths({ locales }: GetStaticPathsContext) {
-    const { products } = await commerce.getAllProductPaths()
-
+    //const { products } = await commerce.getAllProductPaths();
+    console.log("");
+    //console.log(products);
+    const products: any[] = [];
     return {
       paths: locales
         ? locales.reduce<string[]>((arr, locale) => {
@@ -93,10 +87,12 @@ import type {
 
     return router.isFallback ? (
       <h1>Loading...</h1>
-    ) : (
+    ) : 
+    ( (data?.content.productItem != null) ? (
       //ändrat product till den befintliga och lagt till data
        <ProductView product={data.content.productItem} relatedProducts={relatedProducts} data={data} />
-
+       )
+       : console.log("Error, productItem null")
     )
   }
 Woman.Layout = Layout

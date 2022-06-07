@@ -94,7 +94,6 @@ function withCommerceConfig(nextConfig = {}) {
           jsconfigPaths.paths['@framework/*'] = [`${distPath}/*`]
         }
       }
-
       return webpack ? webpack(cfg, options) : cfg
     }
   }

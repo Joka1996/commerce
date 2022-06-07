@@ -1,8 +1,6 @@
 import { useMemo } from 'react'
 import { SWRHook } from '@vercel/commerce/utils/types'
 import useCart, { UseCart } from '@vercel/commerce/cart/use-cart'
-import GetCart from 'api/endpoints/GetCart'
-
 
 export default useCart as UseCart<typeof handler>
 

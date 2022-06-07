@@ -28,7 +28,7 @@ const getData = async () => {
   }
 }
 let cartData = await getData();
-console.log(cartData);
+// console.log(cartData);
 
 //Lagt till items
 import type {LineItem, items } from '@commerce/types/cart'

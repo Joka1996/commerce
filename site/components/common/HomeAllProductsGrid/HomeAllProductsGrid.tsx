@@ -63,7 +63,8 @@ const HomeAllProductsGrid: FC<Props> = ({
                 height: 480,
               }}
             />
-          ))}
+          ))
+          }
         </Grid>
       </div>
     </div>

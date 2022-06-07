@@ -14,12 +14,12 @@ module.exports = withCommerceConfig({
     },  
     //Lagt till för att kunna göra top-level-await
     webpack: (config) => {
-      config.experiments = { topLevelAwait: true };
+      config.experiments = { topLevelAwait: true, layers:true};
       return config;
     },
   commerce,
   i18n: {
-    locales: ['en-US', 'es'],
+    locales: ['en-US'],
     defaultLocale: 'en-US',
   },
   rewrites() {
