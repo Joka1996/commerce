@@ -84,6 +84,8 @@ import type {
     relatedProducts,
   }: InferGetStaticPropsType<typeof getStaticProps>) {
     const router = useRouter()
+    //TODO
+    //this is a work around for "never" problem with inferGetsaticPropsType
     const myData = data as any;
     const myRelatedProducts = relatedProducts as any;
 
@@ -99,4 +101,3 @@ import type {
     )
   }
 Woman.Layout = Layout
-//hej

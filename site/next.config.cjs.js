@@ -12,9 +12,17 @@ module.exports = withCommerceConfig({
     images: {
       domains: ['localtest.me:5001'], 
     },  
+    //folder ffor build
+    distDir: 'build',
+    future: {
+      webpack5: true,
+    },
     //Lagt till för att kunna göra top-level-await
     webpack: (config) => {
       config.experiments = { topLevelAwait: true, layers:true};
+      config.resolve.fallback = {
+        fs: false,
+      }
       return config;
     },
   commerce,

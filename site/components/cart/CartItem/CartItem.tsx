@@ -15,13 +15,6 @@ import AddToCart from '@framework/api/endpoints/AddToCart'
 import UpdateCart from '@framework/api/endpoints/UpdateCart'
 
 
-// type ItemOption = {
-//   name: string
-//   nameId: number
-//   value: string
-//   valueId: number
-// }
-
 const placeholderImg = '/product-img-placeholder.svg'
 
 const CartItem = ({
