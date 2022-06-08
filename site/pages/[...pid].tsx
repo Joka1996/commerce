@@ -88,7 +88,7 @@ import type {
     return router.isFallback ? (
       <h1>Loading...</h1>
     ) : 
-    ( (data?.content.productItem != null) ? (
+    ( (data.content.productItem != null) ? (
       //ändrat product till den befintliga och lagt till data
        <ProductView product={data.content.productItem} relatedProducts={relatedProducts} data={data} />
        )
