@@ -5,14 +5,13 @@ import Link from 'next/link'
 import s from './CartItem.module.css'
 import { useUI } from '@components/ui/context'
 import type { items, LineItem } from '@commerce/types/cart'
-// import usePrice from '@framework/product/use-price' //klagar
+import usePrice from '@framework/product/use-price' //klagar
 //test with import from commerce and not framework
-import usePrice from '@commerce/product/use-price'
 import useUpdateItem from '@framework/cart/use-update-item' //klagar
 import useRemoveItem from '@framework/cart/use-remove-item'
 import Quantity from '@components/ui/Quantity'
 import GetCart from '@framework/api/endpoints/GetCart'
-import RemoveCart from '@framework/api/endpoints/RemoveCart' //klagar
+import RemoveCart from '../../../../packages/local/src/api/endpoints/RemoveCart' //klagar
 import AddToCart from '@framework/api/endpoints/AddToCart'
 import UpdateCart from '@framework/api/endpoints/UpdateCart'
 

@@ -21,7 +21,7 @@ const Navbar: FC<NavbarProps> = ({ links }) => (
         <div className="flex items-center flex-1">
           <Link href="/">
             {/* og classname in a: className={s.logo} */}
-            <a  aria-label="Logo">
+            <a  aria-label="Logo"  className={s.logo}>
               <Logo />
             </a>
           </Link>
