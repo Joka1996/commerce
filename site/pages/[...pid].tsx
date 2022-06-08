@@ -84,14 +84,16 @@ import type {
     relatedProducts,
   }: InferGetStaticPropsType<typeof getStaticProps>) {
     const router = useRouter()
+    const myData = data as any;
+    const myRelatedProducts = relatedProducts as any;
 
     return router.isFallback ? (
       <h1>Loading...</h1>
     ) : 
     ( 
-      (data.content.productItem != null) ? (
+      (myData.content.productItem != null) ? (
       //ändrat product till den befintliga och lagt till data
-       <ProductView product={data.content.productItem} relatedProducts={relatedProducts} data={data} />
+       <ProductView product={myData.content.productItem} relatedProducts={myRelatedProducts} data={myData} />
        )
        : console.log("Error, productItem null")
     )
