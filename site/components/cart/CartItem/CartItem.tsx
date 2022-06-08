@@ -11,7 +11,7 @@ import useUpdateItem from '@framework/cart/use-update-item' //klagar
 import useRemoveItem from '@framework/cart/use-remove-item'
 import Quantity from '@components/ui/Quantity'
 import GetCart from '@framework/api/endpoints/GetCart'
-import RemoveCart from '../../../../packages/local/src/api/endpoints/RemoveCart' //klagar
+import RemoveCart from '../../../../@framework/api/endpoints/RemoveCart' //klagar
 import AddToCart from '@framework/api/endpoints/AddToCart'
 import UpdateCart from '@framework/api/endpoints/UpdateCart'
 
