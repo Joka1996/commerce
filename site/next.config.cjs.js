@@ -17,7 +17,7 @@ module.exports = withCommerceConfig({
     webpack5: true,
     //Lagt till för att kunna göra top-level-await
     webpack: (config) => {
-      config.resolve.fallback={fs:false};
+      config.resolve.fallback={fs:false, path: false, stream: false, constants: false};
       config.experiments = { topLevelAwait: true, layers:true};
       return config;
     },
