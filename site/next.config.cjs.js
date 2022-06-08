@@ -14,12 +14,11 @@ module.exports = withCommerceConfig({
     },  
     //folder ffor build
     distDir: 'build',
+    webpack5: true,
     //Lagt till för att kunna göra top-level-await
     webpack: (config) => {
+      config.resolve.fallback={fs:false};
       config.experiments = { topLevelAwait: true, layers:true};
-      config.node = {
-        fs: "empty",
-      }
       return config;
     },
   commerce,
