@@ -7,14 +7,14 @@ import { useUI } from '@components/ui/context'
 import type { items, LineItem } from '@commerce/types/cart'
  import usePrice from '@vercel/commerce-local/product/use-price' //klagar
 //test with import from commerce and not framework
-import useUpdateItem from '@framework/cart/use-update-item' //klagar
+import useUpdateItem from '@vercel/commerce-local/cart/use-update-item' //klagar
 import useRemoveItem from '@framework/cart/use-remove-item'
 import Quantity from '@components/ui/Quantity'
 import GetCart from '@framework/api/endpoints/GetCart'
 import RemoveCart from "@vercel/commerce-local/api/endpoints/RemoveCart"
 // import RemoveCart from '@framework/api/endpoints/RemoveCart' //klagar
 import AddToCart from '@framework/api/endpoints/AddToCart'
-import UpdateCart from '@framework/api/endpoints/UpdateCart'
+import UpdateCart from '@vercel/commerce-local/api/endpoints/UpdateCart'
 
 
 const placeholderImg = '/product-img-placeholder.svg'
