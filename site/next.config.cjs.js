@@ -17,7 +17,7 @@ module.exports = withCommerceConfig({
     //Lagt till för att kunna göra top-level-await
     webpack: (config) => {
 
-      config.experiments = { topLevelAwait: true, layers:true};
+      config.experiments = { layers:true};
       return config;
     },
   commerce,
