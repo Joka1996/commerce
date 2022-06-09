@@ -23,10 +23,15 @@
       "@components/*": ["components/*"],
       "@commerce": ["../packages/commerce/src"],
       "@commerce/*": ["../packages/commerce/src/*"],
-      "@framework": ["..\\packages\\local\\src"],
-      "@framework/*": ["..\\packages\\local\\src/*"]
+      "@framework": ["../packages/local/src"],
+      "@framework/*": ["../packages/local/src/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
   "exclude": ["node_modules"]
 }
+
+/*
+      "@framework": ["..\\packages\\local\\src"],
+      "@framework/*": ["..\\packages\\local\\src/*"]
+*/
