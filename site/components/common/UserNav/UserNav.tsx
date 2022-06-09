@@ -6,7 +6,7 @@ import { Avatar } from '@components/common'
 import { useUI } from '@components/ui/context'
 import { Heart, Bag, Menu } from '@components/icons'
 import CustomerMenuContent from './CustomerMenuContent'
-import useCustomer from '@framework/customer/use-customer'
+// import useCustomer from '@framework/customer/use-customer'
 import React, { useEffect, useState} from 'react'
 import {
   Dropdown,
