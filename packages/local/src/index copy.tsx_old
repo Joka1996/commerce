@@ -5,7 +5,7 @@ import {
 import { localProvider, LocalProvider } from './provider'
 
 export { localProvider }
-// export type { LocalProvider }
+export type { LocalProvider }
 
 export const CommerceProvider = getCommerceProvider(localProvider)
 
