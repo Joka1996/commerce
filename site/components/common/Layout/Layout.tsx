@@ -29,9 +29,9 @@ const dynamicProps = {
   loading: Loading,
 }
 
-const SignUpView = dynamic(() => import('@components/auth/SignUpView'), {
-  ...dynamicProps,
-})
+// const SignUpView = dynamic(() => import('@components/auth/SignUpView'), {
+//   ...dynamicProps,
+// })
 
 const ForgotPassword = dynamic(
   () => import('@components/auth/ForgotPassword'),
@@ -63,7 +63,7 @@ const ModalView: React.FC<{ modalView: string; closeModal(): any }> = ({
   return (
     <Modal onClose={closeModal}>
       {modalView === 'LOGIN_VIEW' && <LoginView />}
-      {modalView === 'SIGNUP_VIEW' && <SignUpView />}
+      {/* {modalView === 'SIGNUP_VIEW' && <SignUpView />} */}
       {modalView === 'FORGOT_VIEW' && <ForgotPassword />}
     </Modal>
   )
