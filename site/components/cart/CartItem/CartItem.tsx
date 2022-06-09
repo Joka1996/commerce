@@ -5,7 +5,7 @@ import Link from 'next/link'
 import s from './CartItem.module.css'
 import { useUI } from '@components/ui/context'
 import type { items, LineItem } from '@commerce/types/cart'
- import usePrice from '@framework/product/use-price' //klagar
+ import usePrice from '@vercel/commerce-local/product/use-price' //klagar
 //test with import from commerce and not framework
 import useUpdateItem from '@framework/cart/use-update-item' //klagar
 import useRemoveItem from '@framework/cart/use-remove-item'
